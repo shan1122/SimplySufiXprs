@@ -18,52 +18,52 @@ import Deals from "./Deals";
 const DUMMY_Deals = [
   {
     id: "1",
-    title: "Italian",
+    name: "Italian",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "2",
-    title: "Quick & Easy",
+    name: "Quick & Easy",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "3",
-    title: "Hamburgers",
+    name: "Hamburgers",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "4",
-    title: "German",
+    name: "German",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "5",
-    title: "Light & Lovely and menu salat",
+    name: "Light & Lovely and menu salat",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "6",
-    title: "Exotic",
+    name: "Exotic",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "7",
-    title: "Breakfast",
+    name: "Breakfast",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "8",
-    title: "Asian",
+    name: "Asian",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "9",
-    title: "French",
+    name: "French",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
   {
     id: "10",
-    title: "Summer",
+    name: "Summer",
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
 ];

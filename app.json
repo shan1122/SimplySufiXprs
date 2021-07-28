@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "foodapp",
+    "name": "Simply Sufi Xprs",
     "slug": "foodapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#b53421"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

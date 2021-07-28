@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MainStackNavigator, ContactStackNavigator } from "./StackNavigator";
 import Colors from "../config/Colors";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialIcons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 // ./navigation/TabNavigator.js
 
@@ -14,13 +15,6 @@ const BottomTabNavigator = () => {
     <Tab.Navigator initialRouteName="Home"  
     tabBarOptions={{
       activeTintColor: Colors.primary,
-     // inactiveTintColor: 'lightgray',
-      //activeBackgroundColor: '#c4461c',
-      //inactiveBackgroundColor: '#b55031',
-          // style: {
-          //       backgroundColor: '#CE4418',
-          //       paddingBottom: 2
-          // }
    }}
     >
       <Tab.Screen name="Home" component={MainStackNavigator} 
@@ -35,7 +29,20 @@ const BottomTabNavigator = () => {
       }}
       
       />
-      <Tab.Screen name="Deals" component={ContactStackNavigator} />
+      <Tab.Screen name="Deals" component={ContactStackNavigator}
+         options={{
+          tabBarLabel: 'Deals',
+          tabBarColor: '#FF6347',
+          tabBarIcon: ({color}) => (
+            <MaterialIcons name="fastfood" size={24} color={color} />
+            
+          ),
+        }}
+        
+      
+      
+      />
+
     </Tab.Navigator>
   );
 };
