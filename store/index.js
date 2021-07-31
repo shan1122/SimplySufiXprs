@@ -1,4 +1,4 @@
 import { createStore, combineReducers } from 'redux'
-import cartItems from '../reducers/cartItems'
+import cartReducer  from './reducers/cartReducer'
 
-export default store = createStore(cartItems)
+export default store = createStore(cartReducer)

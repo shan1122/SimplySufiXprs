@@ -1,40 +1,57 @@
 import React, { useState } from "react";
-import {
-  Image,
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  Button,
-  Dimensions,
-} from "react-native";
-
+import { Image, View, StyleSheet, Text } from "react-native";
 import Colors from "../config/Colors";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ToastProvider } from 'react-native-paper-toast';
+import { useDispatch } from "react-redux";
+import { addProduct } from "../store/actions";
+import {useToast}  from 'react-native-paper-toast';
 
-function ItemDetail(props) {
-  const [quantity, setQuantity] = useState(1);
-  const Decrement = () => {
-    quantity == 1 ? setQuantity(1) : setQuantity(quantity - 1);
-  };
 
-  const { item } = props.route.params;
+  function ItemDetail(props) {
+    const toast =useToast();
+    console.log(props)
 
+    const disptach = useDispatch();
+    const [quantity, setQuantity] = useState(1);
+    const Decrement = () => {
+      quantity == 1 ? setQuantity(1) : setQuantity(quantity - 1);
+    };
+
+    const { item } = props.route.params;
+    var product ={};    
+    const handlesubmit = () => {
+      product.id=item.id;
+      product.quantity=quantity;
+      product.name=item.name;
+      product.price=item.price;
+      product.image=item.img;
+      product.totalprice=quantity*item.price; 
+      
+  //  item.push({quantity:quantity})
+    console.log(product);
+          toast.show("hello");
+      props.navigation.pop();
+     // addProduct(product);
+
+    };
   return (
     <ScrollView style={styles.contianer}>
-      <Image resizeMode={"cover"} style={styles.img} source={{ uri: item.img }}></Image>
+      <Image
+        resizeMode={"cover"}
+        style={styles.img}
+        source={{ uri: item.img }}
+      ></Image>
       <View style={styles.price}>
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>{item.name}</Text>
         <Text>PKR:{item.price}</Text>
       </View>
       <View style={styles.detailcontainer}>
-        
         <Text style={{ fontWeight: "bold", fontSize: 16 }}>Details</Text>
         <Text>{item.discription}</Text>
       </View>
       {/* BUTTON CONTAINER */}
       <View style={styles.buttonContianer}>
-
         <View style={styles.button}>
           <View style={styles.Leftbutton}>
             <View style={styles.Minusbutton}>
@@ -59,15 +76,23 @@ function ItemDetail(props) {
             </View>
           </View>
         </View>
-        <View style={{marginTop:10,marginBottom:40,}}>
-        <TouchableOpacity style={{ height: 40, marginTop: 10,backgroundColor:Colors.primary ,alignItems:"center",justifyContent:"center",borderRadius:3, }}>
-    <Text style={{color:"white",}}>Add To cart</Text>
-</TouchableOpacity>
-      </View>
+        <View style={{ marginTop: 10, marginBottom: 40 }}>
+          <TouchableOpacity
+            style={{
+              height: 40,
+              marginTop: 10,
+              backgroundColor: Colors.primary,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 3,
+            }}
+            onPress={handlesubmit}
+          >
+            <Text style={{ color: "white" }}>Add To cart</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       {/* Button Submit  */}
-
-     
     </ScrollView>
   );
 }
@@ -82,7 +107,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   img: {
-    backgroundColor:Colors.primary,
+    backgroundColor: Colors.primary,
     width: "100%",
     height: 300,
   },
@@ -117,7 +142,7 @@ const styles = StyleSheet.create({
     //height: 100,
     marginTop: 10,
     height: 40,
-     backgroundColor: Colors.primary,
+    backgroundColor: Colors.primary,
     justifyContent: "center",
     alignItems: "center",
     borderTopLeftRadius: 10,
