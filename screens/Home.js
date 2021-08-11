@@ -538,8 +538,6 @@ const DUMMY_CATEGORIES = [
   },
 ];
 
-//
-
 const DUMMY_Deals = [
   {
     id: "1",
@@ -592,22 +590,6 @@ const DUMMY_Deals = [
     img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
   },
 ];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const renderDeals = ({ item }) => {
   return <HomeDeals {...item} />;

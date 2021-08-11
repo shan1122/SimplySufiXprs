@@ -14,6 +14,7 @@ import ListingDetailsScreen from "../components/ListingDetailsScreen";
 import Colors from "../config/Colors";
 import DealDetails from "../screens/DealDetails";
 import ItemDetail from "../screens/ItemDetail";
+import cart from "../screens/Cart/cart";
 
 
 const Stack = createStackNavigator();
@@ -106,7 +107,7 @@ const MainStackNavigator = () => {
      headerRight: () => (
       <TouchableOpacity
         style={{ marginRight: 10,color:"white" }}
-        onPress={() => navigation.openDrawer()}
+        onPress={() => navigation.navigate("cart")}
       >
          <MaterialCommunityIcons
            name="cart-outline"
@@ -127,17 +128,15 @@ const MainStackNavigator = () => {
    ),
    headerTitleStyle: { flex: 1, textAlign: 'center' },
    headerShown: true,
-  // headerBackTitleVisible: false,
-  // title:"Sufi Rewards",
-   //headerTitleAlign: "center",
-   //headerTintColor: "#fff",
    headerStyle: {
      backgroundColor: Colors.primary,
      
    },
  })}
  component={Home} />
+      
       <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="cart" component={cart} />
       <Stack.Screen name="View Deals" component={ViewDeals} />
       <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
       <Stack.Screen name="DealDetails" component={DealDetails} />

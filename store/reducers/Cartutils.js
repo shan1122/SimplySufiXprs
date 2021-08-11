@@ -2,9 +2,12 @@ export const existingCartItem = ({
     prevCartItems,
     nextCartItem
   }) => {
+    
     return prevCartItems.find(
-      cartItem => cartItem.documentID === nextCartItem.documentID
+      
+      cartItem => cartItem.id === nextCartItem.id
     );
+  
   };
   
   export const handleAddToCart = ({
@@ -13,13 +16,13 @@ export const existingCartItem = ({
   }) => {
     const quantityIncrement = 1;
     const cartItemExists = existingCartItem({ prevCartItems, nextCartItem });
-  
     if (cartItemExists) {
       return prevCartItems.map(cartItem =>
-        cartItem.documentID == nextCartItem.documentID
+        cartItem.id == nextCartItem.id
           ? {
             ...cartItem,
-            quantity: cartItem.quantity + quantityIncrement
+            quantity: cartItem.quantity + nextCartItem.quantity,
+            totalprice : cartItem.totalprice + nextCartItem.totalprice
           } : cartItem
       );
     }
@@ -27,17 +30,25 @@ export const existingCartItem = ({
     return [
       ...prevCartItems,
       {
-        ...nextCartItem,
-        quantity: quantityIncrement
+        ...nextCartItem
       }
     ];
   };
-  
+    
+
+
+
+
+
+
+
+
+
   export const handleRemoveCartItem = ({
     prevCartItems,
     cartItemToRemove
   }) => {
-    return prevCartItems.filter(item => item.documentID !== cartItemToRemove.documentID);
+    return prevCartItems.filter(item => item.id !== cartItemToRemove.id);
   }
   
   export const handleReduceCartItem = ({
@@ -45,18 +56,19 @@ export const existingCartItem = ({
     cartItemToReduce
   }) => {
     const existingCartItem = prevCartItems.find(cartItem =>
-      cartItem.documentID === cartItemToReduce.documentID);
+      cartItem.id === cartItemToReduce.id);
   
     if (existingCartItem.quantity === 1) {
       return prevCartItems.filter(
-        cartItem => cartItem.documentID !== existingCartItem.documentID
+        cartItem => cartItem.id !== existingCartItem.id
       );
     }
   
     return prevCartItems.map(cartItem =>
-      cartItem.documentID === existingCartItem.documentID ?
+      cartItem.id === existingCartItem.id ?
       {
         ...cartItem,
-        quantity: cartItem.quantity - 1
+        quantity: cartItem.quantity - 1,
+        totalprice: cartItem.totalprice-cartItem.price
       } : cartItem)
   };

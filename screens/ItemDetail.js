@@ -5,15 +5,17 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { ToastProvider } from 'react-native-paper-toast';
 import { useDispatch } from "react-redux";
 import { addProduct } from "../store/actions";
-import {useToast}  from 'react-native-paper-toast';
+import { useSelector } from "react-redux";
+//import {useToast}  from 'react-native-paper-toast';
 
 
   function ItemDetail(props) {
-    const toast =useToast();
-    console.log(props)
+    // toast =useToast();
+   
 
     const disptach = useDispatch();
     const [quantity, setQuantity] = useState(1);
+    const counter = useSelector((state) => state.cartItems)
     const Decrement = () => {
       quantity == 1 ? setQuantity(1) : setQuantity(quantity - 1);
     };
@@ -29,11 +31,17 @@ import {useToast}  from 'react-native-paper-toast';
       product.totalprice=quantity*item.price; 
       
   //  item.push({quantity:quantity})
-    console.log(product);
-          toast.show("hello");
-      props.navigation.pop();
-     // addProduct(product);
+   
+        //  toast.show("hello");
+        disptach(
+          addProduct(product)
+        )
 
+        // console.log(counter)
+        // console.log("new array")
+     // props.navigation.pop();
+     // addProduct(product);
+      
     };
   return (
     <ScrollView style={styles.contianer}>
