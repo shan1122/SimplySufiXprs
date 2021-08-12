@@ -1,10 +1,13 @@
 import React from "react";
 import { View, Text } from "react-native";
-//import { Form, FormField,SubmitButton } from "../../components/forms";
+import { Form, FormField,SubmitButton } from "../../components/forms";
+import * as Yup from "yup";
+import { ScrollView } from "react-native-gesture-handler";
 
-//const validationSchema = Yup.object().shape({});
+const validationSchema = Yup.object().shape({});
 
 function CheckOut(props) {
+ 
   const handleSubmit = async ({}) => {
     //     console.log(email,password);
     //     const response2 = await registeruser(name,email,password,address,phone,location);
@@ -14,8 +17,9 @@ function CheckOut(props) {
   };
 
   return (
+    <ScrollView>
     <View>
-      {/* <Form
+      <Form
         initialValues={{}}
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
@@ -37,9 +41,10 @@ function CheckOut(props) {
         />
         <FormField icon="home" name="address" placeholder="Address" />
         <FormField icon="phone" name="phone" placeholder="Contact No" />
-        <SubmitButton title="Register" />
-      </Form> */}
+        <SubmitButton title="Confirm Order" />
+      </Form>
     </View>
+    </ScrollView>
   );
 }
 

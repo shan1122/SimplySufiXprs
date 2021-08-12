@@ -2,10 +2,13 @@
 
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {useLayoutEffect} from "react";
 
-import { TouchableOpacity, View,Text,Image } from "react-native";
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+
+import { TouchableOpacity, View, Text, Image } from "react-native";
 import Home from "../screens/Home";
 import About from "../screens/About";
 import Contact from "../screens/Contact";
@@ -16,7 +19,6 @@ import DealDetails from "../screens/DealDetails";
 import ItemDetail from "../screens/ItemDetail";
 import cart from "../screens/Cart/cart";
 import CheckOut from "../screens/Cart/CheckOut";
-
 
 const Stack = createStackNavigator();
 
@@ -35,190 +37,145 @@ const screenOptionStyle = {
   // headerBackTitle: "Back",
 };
 
-// const screenOptions = {
-
-  
-//     title: 'FoodFinder',
-//     headerLeft: () => (
-//       <View style={{marginLeft: 10}}>
-//         <Icon.Button
-//           name="menu"
-//           size={25}
-//           //color={Colors.white}
-//         //  backgroundColor={Colors.white}
-//           onPress={() => navigation.openDrawer()}
-//         />
-//       </View>
-//     ),
-//     headerRight: () => (
-//       <View style={{flexDirection: 'row', marginRight: 10}}>
-//         <Icon.Button
-//           name="search"
-//           size={25}
-//      //     color={Colors.white}
-//        //   backgroundColor={Colors.primary}
-//           //onPress={() => {}}
-//         />
-        
-//               </View>
-      
-//     ),
- 
+const MainStackNavigator = ({navigation, route}) => {
+  React.useLayoutEffect(() => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    if (routeName === "Home"){
+        navigation.setOptions({tabBarVisible: true});
+    }else {
+        navigation.setOptions({tabBarVisible: false});
+    }
+}, [navigation, route]);
 
 
-
-
-
-
-
-
-// };
-const MainStackNavigator = () => {
   return (
-    
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Home" options={({ navigation }) => ({
-    //   headerLeft: () => (
-    //  <TouchableOpacity
-     
-    //    style={{ marginLeft: 20 }}
-    //    onPress={() => {
+      <Stack.Screen
+        name="Home"
+        options={({ navigation }) => ({
         
-    //    }}
-    //  >
-     
-    //  </TouchableOpacity>
-    // ),
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{ marginLeft: 10, color: "white" }}
+              onPress={() => navigation.openDrawer()}
+            >
+              <MaterialCommunityIcons
+                name="menu"
+                size={25}
+                color={Colors.white}
+                //  style={styles.icon}
+              />
+            </TouchableOpacity>
+          ),
 
-    headerLeft: () => (
-     <TouchableOpacity
-       style={{ marginLeft: 10,color:"white" }}
-       onPress={() => navigation.openDrawer()}
-     >
-        <MaterialCommunityIcons
-          name="menu"
-          size={25}
-          color={Colors.white}
-        //  style={styles.icon}
-        />
-
-     </TouchableOpacity>
-     ),
-
-     headerRight: () => (
-      <TouchableOpacity
-        style={{ marginRight: 10,color:"white" }}
-        onPress={() => navigation.navigate("cart")}
-      >
-         <MaterialCommunityIcons
-           name="cart-outline"
-           size={25}
-           color={Colors.white}
-         //  style={styles.icon}
-         />
-       
- 
-      </TouchableOpacity>
-      ),
-     headerTitle: () => ( // App Logo
-     <Image
-       style={{ width:100, height: 40, backgroundColor:"transparent",alignSelf:'center',alignContent:"center"}}
-       source={require('../assets/logoXprs.png')}
-       resizeMode='contain'
-     />
-   ),
-   headerTitleStyle: { flex: 1, textAlign: 'center' },
-   headerShown: true,
-   headerStyle: {
-     backgroundColor: Colors.primary,
-     
-   },
- })}
- component={Home} />
-      
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ marginRight: 10, color: "white" }}
+              onPress={() => navigation.navigate("cart")}
+            >
+              <MaterialCommunityIcons
+                name="cart-outline"
+                size={25}
+                color={Colors.white}
+                //  style={styles.icon}
+              />
+            </TouchableOpacity>
+          ),
+          headerTitle: () => (
+            // App Logo
+            <Image
+              style={{
+                width: 100,
+                height: 40,
+                backgroundColor: "transparent",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              source={require("../assets/logoXprs.png")}
+              resizeMode="contain"
+            />
+          ),
+          headerTitleStyle: { flex: 1, textAlign: "center" },
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+        })}
+        component={Home}
+      />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="cart" component={cart} />
       <Stack.Screen name="View Deals" component={ViewDeals} />
       <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
       <Stack.Screen name="DealDetails" component={DealDetails} />
       <Stack.Screen name="Product" component={ItemDetail} />
-      <Stack.Screen name="CheckOut" component={CheckOut} />
+      <Stack.Screen
+        name="CheckOut"
+        component={CheckOut}
+        
+      
+      />
     </Stack.Navigator>
   );
 };
-
-
 
 const ContactStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Contact" options={({ navigation }) => ({
-    //   headerLeft: () => (
-    //  <TouchableOpacity
-     
-    //    style={{ marginLeft: 20 }}
-    //    onPress={() => {
-        
-    //    }}
-    //  >
-     
-    //  </TouchableOpacity>
-    // ),
+      <Stack.Screen
+        name="Contact"
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{ marginLeft: 10, color: "white" }}
+              onPress={() => navigation.openDrawer()}
+            >
+              <MaterialCommunityIcons
+                name="menu"
+                size={25}
+                color={Colors.white}
+                //  style={styles.icon}
+              />
+            </TouchableOpacity>
+          ),
 
-    headerLeft: () => (
-     <TouchableOpacity
-       style={{ marginLeft: 10,color:"white" }}
-       onPress={() => navigation.openDrawer()}
-     >
-        <MaterialCommunityIcons
-          name="menu"
-          size={25}
-          color={Colors.white}
-        //  style={styles.icon}
-        />
-
-     </TouchableOpacity>
-     ),
-
-     headerRight: () => (
-      <TouchableOpacity
-        style={{ marginRight: 10,color:"white" }}
-        onPress={() => navigation.openDrawer()}
-      >
-         <MaterialCommunityIcons
-           name="cart-outline"
-           size={25}
-           color={Colors.white}
-         //  style={styles.icon}
-         />
-       
- 
-      </TouchableOpacity>
-      ),
-     headerTitle: () => ( // App Logo
-     <Image
-       style={{ width:100, height: 40, backgroundColor:"transparent",alignSelf:'center',alignContent:"center"}}
-       source={require('../assets/logoXprs.png')}
-       resizeMode='contain'
-     />
-   ),
-   headerTitleStyle: { flex: 1, textAlign: 'center' },
-   headerShown: true,
-  // headerBackTitleVisible: false,
-  // title:"Sufi Rewards",
-   //headerTitleAlign: "center",
-   //headerTintColor: "#fff",
-   headerStyle: {
-     backgroundColor: Colors.primary,
-     
-   },
- })}
- component={Contact} />
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ marginRight: 10, color: "white" }}
+              onPress={() => navigation.openDrawer()}
+            >
+              <MaterialCommunityIcons
+                name="cart-outline"
+                size={25}
+                color={Colors.white}
+                //  style={styles.icon}
+              />
+            </TouchableOpacity>
+          ),
+          headerTitle: () => (
+            // App Logo
+            <Image
+              style={{
+                width: 100,
+                height: 40,
+                backgroundColor: "transparent",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              source={require("../assets/logoXprs.png")}
+              resizeMode="contain"
+            />
+          ),
+          headerTitleStyle: { flex: 1, textAlign: "center" },
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+        })}
+        component={Contact}
+      />
     </Stack.Navigator>
   );
 };
-
-
-
 
 export { MainStackNavigator, ContactStackNavigator };
