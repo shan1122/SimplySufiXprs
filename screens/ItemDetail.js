@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, View, StyleSheet, Text } from "react-native";
+import { Image, View, StyleSheet, Text, Dimensions } from "react-native";
 import Colors from "../config/Colors";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { ToastProvider } from 'react-native-paper-toast';
@@ -87,7 +87,7 @@ import { useSelector } from "react-redux";
         <View style={{ marginTop: 10, marginBottom: 40 }}>
           <TouchableOpacity
             style={{
-              height: 40,
+              height: 50,
               marginTop: 10,
               backgroundColor: Colors.primary,
               alignItems: "center",
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   img: {
     backgroundColor: Colors.primary,
     width: "100%",
-    height: 300,
+    height: Dimensions.get("window").height *0.4,
   },
   buttonContianer: {
     marginHorizontal: 20,

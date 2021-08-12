@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     bottom:2,
   },
   pagination: {
-    borderRadius: 2,
+    borderRadius: 8,
     width:8,
     height:8,
     
@@ -21,8 +21,8 @@ export const CustomPagination = (props) => {
       {...props}
       paginationStyle={styles.paginationContainer}
       paginationStyleItem={styles.pagination}
-      paginationDefaultColor="white"
-      paginationActiveColor={Colors.primary}
+      paginationDefaultColor="black"
+      paginationActiveColor="white"
     />
   );
 };

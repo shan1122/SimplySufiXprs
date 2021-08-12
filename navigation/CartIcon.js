@@ -57,7 +57,7 @@ function CartIcon(props) {
         >
           <TouchableOpacity
             style={{ color: "white" }}
-            onPress={() => navigation.openDrawer()}
+            onPress={() => navigation.navigate("cart")}
           >
             <MaterialCommunityIcons
               name="cart-outline"

@@ -596,19 +596,17 @@ const renderDeals = ({ item }) => {
 };
 
 const renderItem = ({ item }) => {
-  
   return <HomeMenu {...item} />;
 };
 const Home = ({ navigation }) => {
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.sliderContainer}>
         {
           <SwiperFlatList
             autoplay
-            autoplayDelay={3}
-            index={3}
+            autoplayDelay={2}
+            index={1}
             autoplayLoop
             data={Deals}
             renderItem={({ item }) => (
@@ -617,7 +615,6 @@ const Home = ({ navigation }) => {
                   source={{ uri: item.imageUrl }}
                   resizeMode="cover"
                   style={styles.sliderImage}
-                 
                 />
               </View>
             )}
@@ -683,46 +680,31 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 200,
     width: "100%",
-    //margin: 20,
     paddingHorizontal: 10,
     justifyContent: "center",
     alignSelf: "center",
-   // borderRadius: 8,
-   // zIndex:1,
-    backgroundColor:Colors.primary,
-   
+    backgroundColor: Colors.primary,
   },
 
   wrapper: {},
   columnWrapperStyle: {
     display: "flex",
     flexDirection: "row",
-
-    // justifyContent: "space-between",
     paddingHorizontal: 20,
   },
   slide: {
     flex: 1,
     justifyContent: "center",
-    // backgroundColor: Colors.primary,
     borderRadius: 8,
-    //borderWidth:2,
-    marginVertical:13,
-    
-  backgroundColor:Colors.primary,
-    //borderColor:"red",
-    // height: Dimensions.get('window').height/3,
+    marginVertical: 13,
+    backgroundColor: Colors.primary,
     width: Dimensions.get("window").width - 20,
-    //resizeMode="cover"
   },
   sliderImage: {
     flex: 1,
     width: null,
-    // resizeMode: "contain",
     borderRadius: 8,
     height: null,
-    //margin: 10,
-   // padding: 10,
   },
   categoryContainer: {
     flexDirection: "row",
@@ -814,7 +796,6 @@ const styles = StyleSheet.create({
   },
   dealDetailContainer: {
     paddingLeft: 20,
-    // borderWidth:10,
 
     flex: 1 / 2,
     flexDirection: "column",
