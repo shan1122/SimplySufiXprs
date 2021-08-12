@@ -15,6 +15,7 @@ import Colors from "../config/Colors";
 import DealDetails from "../screens/DealDetails";
 import ItemDetail from "../screens/ItemDetail";
 import cart from "../screens/Cart/cart";
+import CheckOut from "../screens/Cart/CheckOut";
 
 
 const Stack = createStackNavigator();
@@ -141,6 +142,7 @@ const MainStackNavigator = () => {
       <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
       <Stack.Screen name="DealDetails" component={DealDetails} />
       <Stack.Screen name="Product" component={ItemDetail} />
+      <Stack.Screen name="CheckOut" component={CheckOut} />
     </Stack.Navigator>
   );
 };
