@@ -24,10 +24,11 @@ import { ScrollView } from "react-native-gesture-handler";
 
 const cart = ({navigation}) => {
   const cartItems = useSelector((state) => state.cartItems);
+  const isCartEmpty = Boolean(cartItems.length);
   const disptach = useDispatch();
   //console.log(cartItems);
  // console.log(navigation)
-  const isCartEmpty = Boolean(cartItems.length);
+  
   const calculatetotalprice = () => {
     let totalPrice = 0;
     cartItems.map((item) => {

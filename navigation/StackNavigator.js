@@ -2,7 +2,6 @@
 
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {useLayoutEffect} from "react";
 
@@ -19,6 +18,7 @@ import DealDetails from "../screens/DealDetails";
 import ItemDetail from "../screens/ItemDetail";
 import cart from "../screens/Cart/cart";
 import CheckOut from "../screens/Cart/CheckOut";
+import CartIcon from "./CartIcon";
 
 const Stack = createStackNavigator();
 
@@ -40,10 +40,10 @@ const screenOptionStyle = {
 const MainStackNavigator = ({navigation, route}) => {
   React.useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
-    if (routeName === "Home"){
-        navigation.setOptions({tabBarVisible: true});
-    }else {
+    if (routeName === "Product" || routeName==="cart" || routeName === "CheckOut"){
         navigation.setOptions({tabBarVisible: false});
+    }else {
+        navigation.setOptions({tabBarVisible: true});
     }
 }, [navigation, route]);
 
@@ -69,17 +69,7 @@ const MainStackNavigator = ({navigation, route}) => {
           ),
 
           headerRight: () => (
-            <TouchableOpacity
-              style={{ marginRight: 10, color: "white" }}
-              onPress={() => navigation.navigate("cart")}
-            >
-              <MaterialCommunityIcons
-                name="cart-outline"
-                size={25}
-                color={Colors.white}
-                //  style={styles.icon}
-              />
-            </TouchableOpacity>
+            <CartIcon/>
           ),
           headerTitle: () => (
             // App Logo
@@ -112,8 +102,6 @@ const MainStackNavigator = ({navigation, route}) => {
       <Stack.Screen
         name="CheckOut"
         component={CheckOut}
-        
-      
       />
     </Stack.Navigator>
   );
@@ -140,17 +128,7 @@ const ContactStackNavigator = () => {
           ),
 
           headerRight: () => (
-            <TouchableOpacity
-              style={{ marginRight: 10, color: "white" }}
-              onPress={() => navigation.openDrawer()}
-            >
-              <MaterialCommunityIcons
-                name="cart-outline"
-                size={25}
-                color={Colors.white}
-                //  style={styles.icon}
-              />
-            </TouchableOpacity>
+              <CartIcon/>
           ),
           headerTitle: () => (
             // App Logo
