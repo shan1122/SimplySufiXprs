@@ -59,6 +59,8 @@ const cart = ({navigation}) => {
     product.price = item.price;
     product.image = item.img;
     product.totalprice = 1 * item.price;
+    product.weight=item.weight;
+    product.weight_unit=item.weight_unit;
     disptach(addProduct(product));
   };
 

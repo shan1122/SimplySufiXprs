@@ -11,16 +11,18 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 
 import SwiperFlatList from "react-native-swiper-flatlist";
 import Colors from "../config/Colors";
 import { CustomPagination } from "../components/CustomPagination";
-
+import { useState, useEffect } from "react";
 //import StarRating from '../components/StarRating';
 
 import HomeDeals from "./HomeDeals";
 import HomeMenu from "./HomeMenu";
+import { getBannerImages, getCitydata } from "../api/Functions";
 
 const Deals = [
   {
@@ -599,23 +601,60 @@ const renderItem = ({ item }) => {
   return <HomeMenu {...item} />;
 };
 const Home = ({ navigation }) => {
+
+  const [slider, SetSlider] = useState([]);
+  const [menu,SetMenu]=useState([]);
+  useEffect(() => {
+    
+
+
+    const LoadConnection = async () => {
+      const sliderResponse= await getBannerImages();
+      const MenuResponse = await getCitydata();
+      if(MenuResponse.ok){
+          SetMenu(MenuResponse.data.cities[0].categories)
+      }
+            if(sliderResponse.ok){
+              SetSlider(sliderResponse.data.banner)
+             // console.log(sliderResponse.data.banner)
+
+            }
+      //   const response1 = await getXPressItems();
+      //  const response2 = await getFrozenItems();
+      //   if (response1.ok && response2.ok) {
+      //     SetXpressdata(response1.data.items);
+      //     SetFrozendata(response2.data.items);
+      //     setIsLoaded(true);
+         
+      //   }
+    };
+   
+    LoadConnection();
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.sliderContainer}>
         {
           <SwiperFlatList
             autoplay
-            autoplayDelay={2}
-            index={1}
+            autoplayDelay={3}
+            index={0}
             autoplayLoop
-            data={Deals}
+            data={slider}
             renderItem={({ item }) => (
               <View style={styles.slide}>
+                <ImageBackground
+                  source={require("../assets/xprsimg.jpg")}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                >
                 <Image
-                  source={{ uri: item.imageUrl }}
+                  source={{ uri: item.img }}
                   resizeMode="cover"
                   style={styles.sliderImage}
                 />
+                </ImageBackground>
               </View>
             )}
             showPagination
@@ -629,7 +668,7 @@ const Home = ({ navigation }) => {
       </View>
 
       <FlatList
-        data={DUMMY_CATEGORIES}
+        data={menu}
         keyExtractor={(item) => item.id.toString()}
         numColumns={4}
         columnWrapperStyle={styles.columnWrapperStyle}

@@ -9,10 +9,11 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 function HomeMenu(props) {
-//  console.log(props.navigation);
+  console.log(props);
    const navigation=useNavigation();
 
   return (
+    
     <TouchableOpacity
       
       onPress={()=>{
@@ -31,12 +32,12 @@ function HomeMenu(props) {
       <View style={styles.categoryIcon}>
         <Image
           style={styles.img}
-          source={{ uri: props.img }}
+          source={{ uri: props.image }}
           resizeMode="contain"
         />
       </View>
 
-      <Text style={styles.categoryBtnTxt}>{props.title}</Text>
+      <Text style={styles.categoryBtnTxt}>{props.name}</Text>
       </View>
     </TouchableOpacity>
   );

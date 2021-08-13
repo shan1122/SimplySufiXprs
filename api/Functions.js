@@ -3,8 +3,7 @@ const endpoint = "/getCategories";
 const item = "/getCategoriesItems";
 const wallet = "/checkWalletPoints"; 
 
-import axios from 'axios';
-import axiosConfig from "../api/clientaxious"
+
 
 let id="1";
 
@@ -50,6 +49,12 @@ var postData = {
 // url: client.item, params: {category_id: 1 } })
 
 
+
+export const getCitydata=()=>client.get("getAllData/"+"2")
+
+export const getBannerImages=()=>client.get("getBannerImgs");
+
+export const CheckOut=(name,email,mobile,city,address,comment,cart)=>client.post("",{name,email,mobile,city,address,comment,cart})
 
 
 

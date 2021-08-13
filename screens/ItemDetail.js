@@ -21,6 +21,9 @@ import { useSelector } from "react-redux";
     };
 
     const { item } = props.route.params;
+
+
+    console.log(item)
     var product ={};    
     const handlesubmit = () => {
       product.id=item.id;
@@ -29,7 +32,8 @@ import { useSelector } from "react-redux";
       product.price=item.price;
       product.image=item.img;
       product.totalprice=quantity*item.price; 
-      
+      product.weight=item.weight;
+      product.weight_unit=item.weight_unit;
   //  item.push({quantity:quantity})
    
         //  toast.show("hello");
@@ -56,7 +60,7 @@ import { useSelector } from "react-redux";
       </View>
       <View style={styles.detailcontainer}>
         <Text style={{ fontWeight: "bold", fontSize: 16 }}>Details</Text>
-        <Text>{item.discription}</Text>
+        <Text>{item.desc}</Text>
       </View>
       {/* BUTTON CONTAINER */}
       <View style={styles.buttonContianer}>
