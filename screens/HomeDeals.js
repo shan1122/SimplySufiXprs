@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   Image,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +16,7 @@ function HomeDeals(props) {
  
 
   return (
-    <TouchableOpacity
+    <TouchableWithoutFeedback
         
         onPress={() => {
           navigation.navigate("Product", {
@@ -48,7 +49,7 @@ function HomeDeals(props) {
        
       </View>
     </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({

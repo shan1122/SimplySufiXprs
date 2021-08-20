@@ -49,12 +49,12 @@ var postData = {
 // url: client.item, params: {category_id: 1 } })
 
 
-
+export const getDeals =()=>client.get("getXprsDeals/2")
 export const getCitydata=()=>client.get("getAllData/"+"2")
 
 export const getBannerImages=()=>client.get("getBannerImgs");
 
-export const CheckOut=(name,email,mobile,city,address,comment,cart)=>client.post("",{name,email,mobile,city,address,comment,cart})
+export const Checkout=(name,email,mobile,city,address,comment,cart,total_quantity,total_bill)=>client.post("/placeOrder",{name,email,mobile,city,address,comment,cart,total_quantity,total_bill},console.log(cart))
 
 
 

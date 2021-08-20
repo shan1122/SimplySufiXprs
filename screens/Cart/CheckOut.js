@@ -4,6 +4,7 @@ import { Form, FormField,SubmitButton } from "../../components/forms";
 import * as Yup from "yup";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
+import { Checkout } from "../../api/Functions";
 
 
 const validationSchema = Yup.object().shape({
@@ -17,13 +18,28 @@ const validationSchema = Yup.object().shape({
 });
 
 function CheckOut(props) {
+  const calculatetotalprice = () => {
+    let totalPrice = 0;
+    cartItems.map((item) => {
+      totalPrice += item.totalprice;
+    });
+    return totalPrice;
+  };
+
   const cartItems = useSelector((state) => state.cartItems);
-  console.log(cartItems)
- 
+  
+    const totalPrice=calculatetotalprice();
+    // console.log(totalPrice)
+    // console.log(cartItems.length)
+    var product = {};
+    product.products=cartItems
+    console.log(product)
   const handleSubmit = async ({name,email,address,phone,comments}) => {
-    console.log(name,email,address)
-    //     console.log(email,password);
-    //     const response2 = await registeruser(name,email,password,address,phone,location);
+   
+        const city="lahore"
+          const CheckOutResponse = await Checkout(name,email,phone,city,address,comments,product,cartItems.length,totalPrice)
+          console.log(CheckOutResponse)
+    //     const response2 = await registeruser(name,email,phone,city,address,comment,cartItems);
     //     //console.log(response2);
     //     //alert(response2.data);
     //    console.log(response2.data.message);

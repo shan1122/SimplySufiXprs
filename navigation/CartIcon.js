@@ -11,6 +11,10 @@ function CartIcon(props) {
   return (
     <>
       {isCartEmpty ? (
+         <TouchableOpacity
+         style={{ color: "white" }}
+         onPress={() => navigation.navigate("cart")}
+       >
         <View
           style={[
             { padding: 5 },
@@ -36,18 +40,16 @@ function CartIcon(props) {
             </Text>
           </View>
 
-          <TouchableOpacity
-            style={{ color: "white" }}
-            onPress={() => navigation.navigate("cart")}
-          >
+         
             <MaterialCommunityIcons
               name="cart-outline"
               size={30}
               color={Colors.white}
               //  style={styles.icon}
             />
-          </TouchableOpacity>
+         
         </View>
+        </TouchableOpacity>
       ) : (
         <View
           style={[

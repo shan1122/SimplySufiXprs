@@ -12,6 +12,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ImageBackground,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 import SwiperFlatList from "react-native-swiper-flatlist";
@@ -22,577 +23,7 @@ import { useState, useEffect } from "react";
 
 import HomeDeals from "./HomeDeals";
 import HomeMenu from "./HomeMenu";
-import { getBannerImages, getCitydata } from "../api/Functions";
-
-const Deals = [
-  {
-    id: "1",
-    imageUrl:
-      "https://www.simplysufi.com/assets/media/mobile%20header%20copy.jpg",
-  },
-  {
-    id: "2",
-    imageUrl:
-      "https://www.simplysufi.com/assets/media/mobile%20header%20copy.jpg",
-  },
-  {
-    id: "3",
-    imageUrl:
-      "https://www.simplysufi.com/assets/media/mobile%20header%20copy.jpg",
-  },
-  {
-    id: "4",
-    imageUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg",
-  },
-];
-
-const DUMMY_CATEGORIES = [
-  {
-    id: "1",
-    title: "Italian",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "2",
-    title: "Quick & Easy",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "3",
-    title: "Hamburgers",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "4",
-    title: "German",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "5",
-    title: "Light & Lovely and menu salat",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "6",
-    title: "Exotic",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "7",
-    title: "Breakfast",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "8",
-    title: "Asian",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "9",
-    title: "French",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-  {
-    id: "10",
-    title: "Summer",
-    img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-    products: [
-      {
-        id: "1",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "2",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "3",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "4",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "5",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-      {
-        id: "6",
-        name: "HamBurger",
-        price: "400",
-        img: "https://www.simplysufixprs.net/assets/media/products/xprscrispychickenburger.jpg",
-        discription: "This is sufi burger made by Awais Gujjar",
-      },
-    ],
-  },
-];
-
-const DUMMY_Deals = [
-  {
-    id: "1",
-    name: "Italian",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "2",
-    name: "Quick & Easy",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "3",
-    name: "Hamburgers",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "4",
-    name: "German",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "5",
-    name: "Light & Lovely and menu salat",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "6",
-    name: "Exotic",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "7",
-    name: "Breakfast",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "8",
-    name: "Asian",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "9",
-    name: "French",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-  {
-    id: "10",
-    name: "Summer",
-    img: "https://www.simplysufixprs.net/assets/media/products/deal1_2_xprs_mayo_chicken_burgers_12_pcs_nuggets_2_sufi_cola_cans.jpeg",
-  },
-];
-
+import { getBannerImages, getCitydata, getDeals } from "../api/Functions";
 const renderDeals = ({ item }) => {
   return <HomeDeals {...item} />;
 };
@@ -601,34 +32,38 @@ const renderItem = ({ item }) => {
   return <HomeMenu {...item} />;
 };
 const Home = ({ navigation }) => {
-
   const [slider, SetSlider] = useState([]);
-  const [menu,SetMenu]=useState([]);
+  const [menu, SetMenu] = useState([]);
+  const [deals, SetDeals] = useState([]);
+  const [dealBanner,SetDealsBanner]=useState([]);
   useEffect(() => {
-    
-
-
     const LoadConnection = async () => {
-      const sliderResponse= await getBannerImages();
+      const sliderResponse = await getBannerImages();
       const MenuResponse = await getCitydata();
-      if(MenuResponse.ok){
-          SetMenu(MenuResponse.data.cities[0].categories)
-      }
-            if(sliderResponse.ok){
-              SetSlider(sliderResponse.data.banner)
-             // console.log(sliderResponse.data.banner)
+      const DealsResponse = await getDeals();
+      console.log();
+      if (DealsResponse.ok){
 
-            }
+        SetDeals(DealsResponse.data.cities[0].categories[0].products);
+        SetDealsBanner(DealsResponse.data.cities[0].categories[0].products[0])
+      }
+      if (MenuResponse.ok) {
+        SetMenu(MenuResponse.data.cities[0].categories);
+      }
+      if (sliderResponse.ok) {
+        SetSlider(sliderResponse.data.banner);
+        // console.log(sliderResponse.data.banner)
+      }
       //   const response1 = await getXPressItems();
       //  const response2 = await getFrozenItems();
       //   if (response1.ok && response2.ok) {
       //     SetXpressdata(response1.data.items);
       //     SetFrozendata(response2.data.items);
       //     setIsLoaded(true);
-         
+
       //   }
     };
-   
+
     LoadConnection();
   }, []);
 
@@ -649,11 +84,11 @@ const Home = ({ navigation }) => {
                   resizeMode="cover"
                   style={styles.sliderImage}
                 >
-                <Image
-                  source={{ uri: item.img }}
-                  resizeMode="cover"
-                  style={styles.sliderImage}
-                />
+                  <Image
+                    source={{ uri: item.img }}
+                    resizeMode="cover"
+                    style={styles.sliderImage}
+                  />
                 </ImageBackground>
               </View>
             )}
@@ -674,22 +109,26 @@ const Home = ({ navigation }) => {
         columnWrapperStyle={styles.columnWrapperStyle}
         renderItem={renderItem}
       />
-
+      <TouchableOpacity  onPress={() => {
+        navigation.navigate("Product", {
+          item: dealBanner,
+        });
+      }}>
       <View style={styles.dealsContainer}>
         <View style={styles.dealImgContainer}>
           <Image
             source={{
-              uri: "https://www.simplysufixprs.net/assets/media/products/deal_4_xprs_mayo_chicken_burger_4_sufi_cola_cans.jpeg",
+              uri: dealBanner.img 
             }}
             style={styles.dealImage}
           ></Image>
         </View>
         <View style={styles.dealDetailContainer}>
-          <Text style={{ fontWeight: "bold", fontSize: 25 }}>Deal For 4</Text>
-          <Text>4 XPRS Mayo Chicken Burgers, 4 Sufi Cola Cans </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 25 }}>{dealBanner.name}</Text>
+          <Text>{dealBanner.desc} </Text>
         </View>
       </View>
-
+      </TouchableOpacity>
       <View style={styles.breaker}>
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>Deals</Text>
       </View>
@@ -700,7 +139,7 @@ const Home = ({ navigation }) => {
         horizontal={true}
       >
         <FlatList
-          data={DUMMY_Deals}
+          data={deals}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={{ flexDirection: "row", flexWrap: "nowrap" }}
           //columnWrapperStyle={styles.columnWrapperStyle}

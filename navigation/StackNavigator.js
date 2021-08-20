@@ -3,9 +3,9 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {useLayoutEffect} from "react";
+import { useLayoutEffect } from "react";
 
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 import { TouchableOpacity, View, Text, Image } from "react-native";
 import Home from "../screens/Home";
@@ -19,6 +19,7 @@ import ItemDetail from "../screens/ItemDetail";
 import cart from "../screens/Cart/cart";
 import CheckOut from "../screens/Cart/CheckOut";
 import CartIcon from "./CartIcon";
+import HeaderLogo from "./HeaderLogo";
 
 const Stack = createStackNavigator();
 
@@ -37,23 +38,25 @@ const screenOptionStyle = {
   // headerBackTitle: "Back",
 };
 
-const MainStackNavigator = ({navigation, route}) => {
+const MainStackNavigator = ({ navigation, route }) => {
   React.useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
-    if (routeName === "Product" || routeName==="cart" || routeName === "CheckOut"){
-        navigation.setOptions({tabBarVisible: false});
-    }else {
-        navigation.setOptions({tabBarVisible: true});
+    if (
+      routeName === "Product" ||
+      routeName === "cart" ||
+      routeName === "CheckOut"
+    ) {
+      navigation.setOptions({ tabBarVisible: false });
+    } else {
+      navigation.setOptions({ tabBarVisible: true });
     }
-}, [navigation, route]);
-
+  }, [navigation, route]);
 
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen
         name="Home"
         options={({ navigation }) => ({
-        
           headerLeft: () => (
             <TouchableOpacity
               style={{ marginLeft: 10, color: "white" }}
@@ -68,9 +71,7 @@ const MainStackNavigator = ({navigation, route}) => {
             </TouchableOpacity>
           ),
 
-          headerRight: () => (
-            <CartIcon/>
-          ),
+          headerRight: () => <CartIcon />,
           headerTitle: () => (
             // App Logo
             <Image
@@ -93,16 +94,34 @@ const MainStackNavigator = ({navigation, route}) => {
         })}
         component={Home}
       />
-      <Stack.Screen name="About" component={About} />
-      <Stack.Screen name="cart" component={cart} />
+      <Stack.Screen
+        name="About"
+        component={About}
+        options={({ navigation }) => ({
+          headerTitleAlign: "center",
+          headerTitle: () => {},
+        })}
+      />
+      <Stack.Screen
+        name="cart"
+        component={cart}
+        options={({ navigation }) => ({
+          headerTitle: () => {
+            <HeaderLogo></HeaderLogo>;
+          },
+          headerTitleAlign: "center",
+        })}
+      />
       <Stack.Screen name="View Deals" component={ViewDeals} />
       <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
-      <Stack.Screen name="DealDetails" component={DealDetails} />
+      <Stack.Screen name="DealDetails" component={DealDetails}  options={({ navigation }) => ({
+         headerRight: () => <CartIcon />,
+
+
+
+      })}/>
       <Stack.Screen name="Product" component={ItemDetail} />
-      <Stack.Screen
-        name="CheckOut"
-        component={CheckOut}
-      />
+      <Stack.Screen name="CheckOut" component={CheckOut} />
     </Stack.Navigator>
   );
 };
@@ -127,9 +146,7 @@ const ContactStackNavigator = () => {
             </TouchableOpacity>
           ),
 
-          headerRight: () => (
-              <CartIcon/>
-          ),
+          headerRight: () => <CartIcon />,
           headerTitle: () => (
             // App Logo
             <Image

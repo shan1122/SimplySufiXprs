@@ -1,43 +1,29 @@
 import React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Dimensions,
-  Image,
-} from "react-native";
+import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 function HomeMenu(props) {
-  console.log(props);
-   const navigation=useNavigation();
+  //console.log(props);
+  const navigation = useNavigation();
 
   return (
-    
     <TouchableOpacity
-      
-      onPress={()=>{
-        navigation.navigate("DealDetails",{
-
-          item:props.products
-        })
-          
-
-      }
-        
-      }
-     
+      onPress={() => {
+        navigation.navigate("DealDetails", {
+          item: props.products,
+        });
+      }}
     >
       <View style={styles.categoryContainer}>
-      <View style={styles.categoryIcon}>
-        <Image
-          style={styles.img}
-          source={{ uri: props.image }}
-          resizeMode="contain"
-        />
-      </View>
+        <View style={styles.categoryIcon}>
+          <Image
+            style={styles.img}
+            source={{ uri: props.image }}
+            resizeMode="contain"
+          />
+        </View>
 
-      <Text style={styles.categoryBtnTxt}>{props.name}</Text>
+        <Text style={styles.categoryBtnTxt}>{props.name}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -22,13 +22,13 @@ import Colors from "../../config/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 
-const cart = ({navigation}) => {
+const cart = ({ navigation }) => {
   const cartItems = useSelector((state) => state.cartItems);
   const isCartEmpty = Boolean(cartItems.length);
   const disptach = useDispatch();
   //console.log(cartItems);
- // console.log(navigation)
-  
+  // console.log(navigation)
+
   const calculatetotalprice = () => {
     let totalPrice = 0;
     cartItems.map((item) => {
@@ -59,8 +59,8 @@ const cart = ({navigation}) => {
     product.price = item.price;
     product.image = item.img;
     product.totalprice = 1 * item.price;
-    product.weight=item.weight;
-    product.weight_unit=item.weight_unit;
+    product.weight = item.weight;
+    product.weight_unit = item.weight_unit;
     disptach(addProduct(product));
   };
 
@@ -72,18 +72,16 @@ const cart = ({navigation}) => {
         }}
       >
         <View style={styles.container}>
-        <View style={styles.cartImgContainer}>
+          <View style={styles.cartImgContainer}>
             <Image
-            source={{
-              uri:item.image
-            }}
-            style={styles.cartimgsize}
-            resizeMode="contain"
-          ></Image>
-
-            </View>
+              source={{
+                uri: item.image,
+              }}
+              style={styles.cartimgsize}
+              resizeMode="contain"
+            ></Image>
+          </View>
           <View style={styles.productContainer}>
-           
             <Text
               style={{ fontWeight: "100", fontSize: 18, color: Colors.primary }}
             >
@@ -132,7 +130,7 @@ const cart = ({navigation}) => {
   };
 
   return (
-    <View style={{flex:1,backgroundColor:"white"}}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       {!isCartEmpty ? (
         <View style={styles.emptyCartContainer}>
           <MaterialCommunityIcons
@@ -144,8 +142,7 @@ const cart = ({navigation}) => {
           <Text style={styles.emptyCartText}>Your cart is currently empty</Text>
         </View>
       ) : (
-       
-        <ScrollView style={{flex: 1}}>
+        <ScrollView style={{ flex: 1 }}>
           <Text
             style={{
               fontSize: 11,
@@ -165,17 +162,19 @@ const cart = ({navigation}) => {
             ItemSeparatorComponent={ListItemSeparator}
           />
           <ListItemSeparator></ListItemSeparator>
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 20,
-              color: Colors.medium,
-              marginHorizontal: 10,
-              alignSelf: "center",
-            }}
-          >
-            Total {calculatetotalprice()}
-          </Text>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <Text style={styles.totalPrice}>Total</Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: "row-reverse" }}>
+              <Text
+                style={styles.totalPrice}
+              >
+                PKR {calculatetotalprice()}
+              </Text>
+            </View>
+          </View>
+
           <ListItemSeparator></ListItemSeparator>
           <View style={{ marginTop: 10, marginBottom: 40 }}>
             <TouchableOpacity
@@ -189,9 +188,8 @@ const cart = ({navigation}) => {
                 borderRadius: 3,
               }}
               //  onPress={handlesubmit}
-              onPress={()=>{
-                navigation.navigate("CheckOut")
-
+              onPress={() => {
+                navigation.navigate("CheckOut");
               }}
             >
               <Text style={{ color: "white" }}>CHECK OUT</Text>
@@ -207,12 +205,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     margin: 10,
-    height:70
   },
   productContainer: {
     flex: 0.5,
     flexDirection: "column",
-    marginTop:6
+    marginTop: 6,
   },
   buttonContainer: {
     flex: 0.3,
@@ -230,20 +227,25 @@ const styles = StyleSheet.create({
     marginTop: Dimensions.get("window").height * 0.3,
   },
   emptyCartText: {
-   // fontWeight: "bold",
+    // fontWeight: "bold",
     fontSize: 16,
     color: Colors.medium,
   },
   cartImgContainer: {
     flex: 0.2,
     flexDirection: "column",
-    marginRight:6,
+    marginRight: 6,
   },
-  cartimgsize:{
-    width:"100%",
-    height:"100%",
-   
-  }
+  cartimgsize: {
+    width: "100%",
+    height: "100%",
+  },
+  totalPrice: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: Colors.medium,
+    marginHorizontal: 10,
+  },
 });
 
 export default cart;
