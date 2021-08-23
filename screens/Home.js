@@ -12,7 +12,6 @@ import {
   Dimensions,
   TouchableOpacity,
   ImageBackground,
-  TouchableWithoutFeedback,
 } from "react-native";
 
 import SwiperFlatList from "react-native-swiper-flatlist";
@@ -20,10 +19,12 @@ import Colors from "../config/Colors";
 import { CustomPagination } from "../components/CustomPagination";
 import { useState, useEffect } from "react";
 //import StarRating from '../components/StarRating';
+import { AppLoading } from "expo";
 
 import HomeDeals from "./HomeDeals";
 import HomeMenu from "./HomeMenu";
 import { getBannerImages, getCitydata, getDeals } from "../api/Functions";
+import ActivityIndicator from "../components/ActivityIndicator";
 const renderDeals = ({ item }) => {
   return <HomeDeals {...item} />;
 };
@@ -33,27 +34,33 @@ const renderItem = ({ item }) => {
 };
 const Home = ({ navigation }) => {
   const [slider, SetSlider] = useState([]);
+
   const [menu, SetMenu] = useState([]);
   const [deals, SetDeals] = useState([]);
   const [dealBanner,SetDealsBanner]=useState([]);
+  const [loading,SetLoading]=useState(false);
   useEffect(() => {
     const LoadConnection = async () => {
+      SetLoading(true)
       const sliderResponse = await getBannerImages();
       const MenuResponse = await getCitydata();
       const DealsResponse = await getDeals();
       console.log();
-      if (DealsResponse.ok){
+      if (DealsResponse.ok && MenuResponse.ok && sliderResponse.ok ){
 
         SetDeals(DealsResponse.data.cities[0].categories[0].products);
         SetDealsBanner(DealsResponse.data.cities[0].categories[0].products[0])
-      }
-      if (MenuResponse.ok) {
         SetMenu(MenuResponse.data.cities[0].categories);
-      }
-      if (sliderResponse.ok) {
         SetSlider(sliderResponse.data.banner);
-        // console.log(sliderResponse.data.banner)
+        SetLoading(false)
       }
+      // if () {
+        
+      // }
+      // if () {
+        
+      //   // console.log(sliderResponse.data.banner)
+      // }
       //   const response1 = await getXPressItems();
       //  const response2 = await getFrozenItems();
       //   if (response1.ok && response2.ok) {
@@ -66,8 +73,11 @@ const Home = ({ navigation }) => {
 
     LoadConnection();
   }, []);
+ 
 
   return (
+    <>
+    <ActivityIndicator visible={loading}></ActivityIndicator>
     <ScrollView style={styles.container}>
       <View style={styles.sliderContainer}>
         {
@@ -126,6 +136,20 @@ const Home = ({ navigation }) => {
         <View style={styles.dealDetailContainer}>
           <Text style={{ fontWeight: "bold", fontSize: 25 }}>{dealBanner.name}</Text>
           <Text>{dealBanner.desc} </Text>
+          <View>
+        <TouchableOpacity
+          style={{
+            height: 40,
+            marginTop: 10,
+            backgroundColor: Colors.primary,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 3,
+          }}
+        >
+          <Text style={{ color: "white" }}>Add To cart</Text>
+        </TouchableOpacity>
+      </View> 
         </View>
       </View>
       </TouchableOpacity>
@@ -147,6 +171,7 @@ const Home = ({ navigation }) => {
         />
       </ScrollView>
     </ScrollView>
+    </>
   );
 };
 

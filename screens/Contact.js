@@ -1,6 +1,7 @@
 // ./screens/Contact.js
 
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import {
   View,
   Button,
@@ -12,6 +13,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { getDeals } from "../api/Functions";
 import ListItemSeparator from "../components/ListItemSeparator";
 import Deals from "./Deals";
 
@@ -74,9 +76,56 @@ const renderItem = ({ item }) => {
 
 
 const Contact = () => {
+  const [loading,SetLoading]=useState(false);
+  
+  const [deals, SetDeals] = useState([]);
+ // const [deals, SetDeals] = useState([]);
+
+  
+  useEffect(() => {
+    const LoadConnection = async () => {
+      SetLoading(true)
+      //const sliderResponse = await getBannerImages();
+     // const MenuResponse = await getCitydata();
+     
+     const DealsResponse = await getDeals();
+      console.log();
+      if (DealsResponse.ok){
+
+        SetDeals(DealsResponse.data.cities[0].categories[0].products);
+        //SetDealsBanner(DealsResponse.data.cities[0].categories[0].products[0])
+       // SetMenu(MenuResponse.data.cities[0].categories);
+        //SetSlider(sliderResponse.data.banner);
+        //SetLoading(false)
+      }
+      // if () {
+        
+      // }
+      // if () {
+        
+      //   // console.log(sliderResponse.data.banner)
+      // }
+      //   const response1 = await getXPressItems();
+      //  const response2 = await getFrozenItems();
+      //   if (response1.ok && response2.ok) {
+      //     SetXpressdata(response1.data.items);
+      //     SetFrozendata(response2.data.items);
+      //     setIsLoaded(true);
+
+      //   }
+    };
+
+    LoadConnection();
+  }, []);
+
+
+
+
+
+  
   return (
     <FlatList
-        data={DUMMY_Deals}
+        data={deals}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         ItemSeparatorComponent={ListItemSeparator}

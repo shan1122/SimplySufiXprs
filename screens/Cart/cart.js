@@ -14,6 +14,7 @@ import {
   addProduct,
   removeCartItem,
   reduceCartItem,
+  clearCart
 } from "../../store/actions";
 import { useDispatch } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";

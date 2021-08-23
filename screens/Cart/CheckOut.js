@@ -1,10 +1,20 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text,Modal,StyleSheet,TouchableOpacity } from "react-native";
 import { Form, FormField,SubmitButton } from "../../components/forms";
 import * as Yup from "yup";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 import { Checkout } from "../../api/Functions";
+import { useState } from "react";
+import Colors from "../../config/Colors";
+import ListItemSeparator from "../../components/ListItemSeparator";
+import { useDispatch } from "react-redux";
+import {
+  addProduct,
+  removeCartItem,
+  reduceCartItem,
+  clearCart
+} from "../../store/actions";
 
 
 const validationSchema = Yup.object().shape({
@@ -18,27 +28,54 @@ const validationSchema = Yup.object().shape({
 });
 
 function CheckOut(props) {
+  const disptach = useDispatch();
+  const[visible,SetVisible]=useState(false);
+  const [loading,setLoading]=useState(false);
+  console.log(props)
   const calculatetotalprice = () => {
     let totalPrice = 0;
+    let cartTotalQuantity=0;
     cartItems.map((item) => {
       totalPrice += item.totalprice;
+      cartTotalQuantity+=item.quantity;
     });
     return totalPrice;
   };
+  const calculateCartTotalQuantity = () => {
+    let cartTotalQuantity=0;
+    cartItems.map((item) => {
+      cartTotalQuantity+=item.quantity;
+    });
+    return cartTotalQuantity;
+  };
+const NextPage =()=>{
+  
+  SetVisible(false);
+  disptach(
+   clearCart()
+    //reduceCartItem(item)
+  );
+  props.navigation.navigate("Home")
+//  props.navigation.pop();
+
+
+}
 
   const cartItems = useSelector((state) => state.cartItems);
   
     const totalPrice=calculatetotalprice();
+    const quantity=calculateCartTotalQuantity();
+    console.log(quantity);
     // console.log(totalPrice)
     // console.log(cartItems.length)
     var product = {};
     product.products=cartItems
-    console.log(product)
+
   const handleSubmit = async ({name,email,address,phone,comments}) => {
-   
+          SetVisible(true);
         const city="lahore"
-          const CheckOutResponse = await Checkout(name,email,phone,city,address,comments,product,cartItems.length,totalPrice)
-          console.log(CheckOutResponse)
+          const CheckOutResponse = await Checkout(name,email,phone,city,address,comments,product,quantity,totalPrice)
+          
     //     const response2 = await registeruser(name,email,phone,city,address,comment,cartItems);
     //     //console.log(response2);
     //     //alert(response2.data);
@@ -46,7 +83,34 @@ function CheckOut(props) {
   };
 
   return (
+    <>
     <ScrollView>
+     <View>
+     <View  style={styles.centeredView}>
+        <View style={styles.modalView}>
+        <Modal visible={visible}>
+                <View style={{ flex: 1/2, justifyContent:"center",alignItems:"center", borderRadius: 20,}}>
+                    
+                <Text style={styles.TextHeader}>THNAK YOU FOR ORDER</Text>
+                <ListItemSeparator></ListItemSeparator>
+                <View style={{margin:20}}>
+                
+                <Text style={styles.TextDetails}>Your order is sucessfully placed</Text>
+                <Text  style={styles.TextDetails}>You will receive a confirmation email shortly containing your order number and order details</Text>
+                </View>
+                  <TouchableOpacity
+                    style={styles.activenowbutton}
+                    onPress={NextPage}
+                  >
+                    <Text style={styles.Buttontext}>OK</Text>
+                  </TouchableOpacity>
+                  
+                </View>
+              </Modal>
+              </View>
+              </View>
+
+     </View>
     <View>
       <Form
         initialValues={{name:"",email:"",address:"",phone:"",comments:""}}
@@ -81,7 +145,71 @@ function CheckOut(props) {
       </Form>
     </View>
     </ScrollView>
+    </>
   );
+  
 }
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+   // marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+   // borderRadius: 20,
+   // padding: 35,
 
+    //height:"%",
+   // width:"100%",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+activenowbutton: {
+
+    height:50,
+    width: "90%",
+    alignItems: "center",
+    backgroundColor: Colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 10,
+    borderRadius: 10,
+  },
+  cancelbtn: {
+    height:30,
+    width: "50%",
+    alignItems: "center",
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 10,
+    borderRadius: 10,
+  },
+  Buttontext:{
+    
+      color: Colors.white,
+      fontWeight: "bold",
+   
+  },
+  TextHeader:{
+    
+    fontWeight: "100",
+     fontSize: 20, 
+   //  fontWeight:"bold",
+     color: Colors.primary
+  },
+  TextDetails:{
+     fontWeight: "100", fontSize: 16, color: Colors.medium 
+  }
+})
 export default CheckOut;

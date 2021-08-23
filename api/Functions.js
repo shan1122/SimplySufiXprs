@@ -54,7 +54,7 @@ export const getCitydata=()=>client.get("getAllData/"+"2")
 
 export const getBannerImages=()=>client.get("getBannerImgs");
 
-export const Checkout=(name,email,mobile,city,address,comment,cart,total_quantity,total_bill)=>client.post("/placeOrder",{name,email,mobile,city,address,comment,cart,total_quantity,total_bill},console.log(cart))
+export const Checkout=(name,email,mobile,city,address,comment,cart,total_quantity,total_bill)=>client.post("/placeOrder",{name,email,mobile,city,address,comment,cart,total_quantity,total_bill})
 
 
 
