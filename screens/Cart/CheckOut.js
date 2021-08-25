@@ -15,6 +15,7 @@ import {
   reduceCartItem,
   clearCart
 } from "../../store/actions";
+import ActivityIndicator from "../../components/ActivityIndicator";
 
 
 const validationSchema = Yup.object().shape({
@@ -31,7 +32,11 @@ function CheckOut(props) {
   const disptach = useDispatch();
   const[visible,SetVisible]=useState(false);
   const [loading,setLoading]=useState(false);
-  console.log(props)
+  const [orderId,SetOrderid]= useState();
+  const [error,Seterror]=useState(false);
+  const [errordata,SetErrorData]=useState(null);
+
+  //console.log(props)
   const calculatetotalprice = () => {
     let totalPrice = 0;
     let cartTotalQuantity=0;
@@ -53,7 +58,7 @@ const NextPage =()=>{
   SetVisible(false);
   disptach(
    clearCart()
-    //reduceCartItem(item)
+   
   );
   props.navigation.navigate("Home")
 //  props.navigation.pop();
@@ -65,17 +70,34 @@ const NextPage =()=>{
   
     const totalPrice=calculatetotalprice();
     const quantity=calculateCartTotalQuantity();
-    console.log(quantity);
+    // console.log(quantity);
     // console.log(totalPrice)
     // console.log(cartItems.length)
     var product = {};
     product.products=cartItems
 
   const handleSubmit = async ({name,email,address,phone,comments}) => {
-          SetVisible(true);
+        setLoading(true);
+    //      SetVisible(true);
         const city="lahore"
           const CheckOutResponse = await Checkout(name,email,phone,city,address,comments,product,quantity,totalPrice)
-          
+          if (CheckOutResponse.ok){
+            // console.log(CheckOutResponse.data)
+            Seterror(false);
+            SetOrderid(CheckOutResponse.data.order_id) 
+            setLoading(false);
+            SetVisible(true)
+            SetErrorData(null)
+           
+            
+          }
+          else{
+            Seterror(true)
+             SetErrorData(CheckOutResponse.problem);
+
+            
+
+          }
     //     const response2 = await registeruser(name,email,phone,city,address,comment,cartItems);
     //     //console.log(response2);
     //     //alert(response2.data);
@@ -84,6 +106,7 @@ const NextPage =()=>{
 
   return (
     <>
+    <ActivityIndicator visible={loading}></ActivityIndicator>
     <ScrollView>
      <View>
      <View  style={styles.centeredView}>
@@ -95,7 +118,7 @@ const NextPage =()=>{
                 <ListItemSeparator></ListItemSeparator>
                 <View style={{margin:20}}>
                 
-                <Text style={styles.TextDetails}>Your order is sucessfully placed</Text>
+                <Text style={styles.TextDetails}>Your order {orderId} is sucessfully placed</Text>
                 <Text  style={styles.TextDetails}>You will receive a confirmation email shortly containing your order number and order details</Text>
                 </View>
                   <TouchableOpacity
@@ -112,6 +135,11 @@ const NextPage =()=>{
 
      </View>
     <View>
+    {error&&
+      <>
+      <Text style={{color:'red'}}>{errordata}</Text>
+     
+      </>}
       <Form
         initialValues={{name:"",email:"",address:"",phone:"",comments:""}}
         onSubmit={handleSubmit}

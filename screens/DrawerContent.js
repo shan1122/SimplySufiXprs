@@ -60,7 +60,7 @@ export function DrawerContent(props) {
                 props.navigation.navigate("Home");
               }}
             />
-            <DrawerItem
+            {/* <DrawerItem
               icon={({ color, size }) => (
                 <MaterialIcons name="restaurant-menu" size={24} color="white" />
               )}
@@ -69,8 +69,8 @@ export function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate("Home");
               }}
-            />
-            <DrawerItem
+            /> */}
+            {/* <DrawerItem
               icon={({ color, size }) => (
                 <MaterialIcons name="fastfood" size={24} color="white" />
               )}
@@ -79,7 +79,7 @@ export function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate("Home");
               }}
-            />
+            /> */}
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="home-outline" color={Colors.white} size={size} />
@@ -90,7 +90,7 @@ export function DrawerContent(props) {
                 props.navigation.navigate("Contact");
               }}
             />
-            <DrawerItem
+            {/* <DrawerItem
               icon={({ color, size }) => (
                 <MaterialIcons name="location-pin" size={24} color="white" />
               )}
@@ -130,7 +130,7 @@ export function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate("Contact");
               }}
-            />
+            /> */}
             {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 

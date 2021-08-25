@@ -1,5 +1,3 @@
-// ./screens/Home.js
-
 import React from "react";
 import {
   View,
@@ -18,9 +16,6 @@ import SwiperFlatList from "react-native-swiper-flatlist";
 import Colors from "../config/Colors";
 import { CustomPagination } from "../components/CustomPagination";
 import { useState, useEffect } from "react";
-//import StarRating from '../components/StarRating';
-import { AppLoading } from "expo";
-
 import HomeDeals from "./HomeDeals";
 import HomeMenu from "./HomeMenu";
 import { getBannerImages, getCitydata, getDeals } from "../api/Functions";
@@ -45,7 +40,7 @@ const Home = ({ navigation }) => {
       const sliderResponse = await getBannerImages();
       const MenuResponse = await getCitydata();
       const DealsResponse = await getDeals();
-      console.log();
+     
       if (DealsResponse.ok && MenuResponse.ok && sliderResponse.ok ){
 
         SetDeals(DealsResponse.data.cities[0].categories[0].products);
@@ -91,7 +86,7 @@ const Home = ({ navigation }) => {
               <View style={styles.slide}>
                 <ImageBackground
                   source={require("../assets/xprsimg.jpg")}
-                  resizeMode="cover"
+                  resizeMode="contain"
                   style={styles.sliderImage}
                 >
                   <Image
