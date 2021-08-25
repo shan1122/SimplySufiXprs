@@ -17,7 +17,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../config/Colors";
 
 export function DrawerContent(props) {
-  // console.log(props);
+ 
 
   return (
     <View style={{ flex: 1 }}>

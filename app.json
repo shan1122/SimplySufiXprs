@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Simply Sufi Xprs",
-    "slug": "foodapp",
+    "slug": "Simply Sufi Xprs",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#b53421"
       },
       "package": "com.simplysufixprs.net",
       "versionCode": 36

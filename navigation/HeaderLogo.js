@@ -2,7 +2,10 @@ import React from 'react';
 import { TouchableOpacity, View, Text, Image } from "react-native";
 
 const HeaderLogo = () => {
+  
     return (
+      
+      <View style={{flex: 1,alignContent:"center",alignSelf:"center"}}> 
         <Image
         style={{
           width: "100%",
@@ -14,7 +17,8 @@ const HeaderLogo = () => {
         source={require("../assets/logoXprs.png")}
         resizeMode="contain"
       />
-    );
+      </View>
+    )
 }
 
 export default HeaderLogo;

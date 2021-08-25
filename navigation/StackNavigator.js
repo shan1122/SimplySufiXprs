@@ -99,28 +99,95 @@ const MainStackNavigator = ({ navigation, route }) => {
         component={About}
         options={({ navigation }) => ({
           headerTitleAlign: "center",
-          headerTitle: () => {},
+          headerTitle: () => (
+            // App Logo
+            <Image
+              style={{
+                width: 100,
+                height: 40,
+                backgroundColor: "transparent",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              source={require("../assets/logoXprs.png")}
+              resizeMode="cover"
+            />
+          ),
+          headerTitleStyle: { flex: 1, textAlign: "center" },
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
         })}
       />
       <Stack.Screen
         name="cart"
         component={cart}
         options={({ navigation }) => ({
-          headerTitle: () => {
-            <HeaderLogo></HeaderLogo>;
-          },
+          headerTitle: () => (
+            // App Logo
+            <Image
+              style={{
+                width: 100,
+                height: 40,
+                backgroundColor: "transparent",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              source={require("../assets/logoXprs.png")}
+              resizeMode="contain"
+            />
+          ),
           headerTitleAlign: "center",
+          //  headerTitleStyle: { flex: 1, textAlign: "center" },
         })}
       />
       <Stack.Screen name="View Deals" component={ViewDeals} />
       <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
-      <Stack.Screen name="DealDetails" component={DealDetails}  options={({ navigation }) => ({
-         headerRight: () => <CartIcon />,
-
-
-
-      })}/>
-      <Stack.Screen name="Product" component={ItemDetail} />
+      <Stack.Screen
+        name="DealDetails"
+        component={DealDetails}
+        options={({ navigation }) => ({
+          headerRight: () => <CartIcon />,
+          headerTitle: () => (
+            // App Logo
+            <Image
+              style={{
+                width: 100,
+                height: 40,
+                backgroundColor: "transparent",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              source={require("../assets/logoXprs.png")}
+              resizeMode="contain"
+            />
+          ),
+          headerTitleAlign: "center",
+        })}
+      />
+      <Stack.Screen
+        name="Product"
+        component={ItemDetail}
+        options={({ navigation }) => ({
+          
+          headerTitle: () => (
+            // App Logo
+            <Image
+              style={{
+                width: 100,
+                height: 40,
+                backgroundColor: "transparent",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              source={require("../assets/logoXprs.png")}
+              resizeMode="contain"
+            />
+          ),
+          headerTitleAlign: "center",
+        })}
+      />
       <Stack.Screen name="CheckOut" component={CheckOut} />
     </Stack.Navigator>
   );

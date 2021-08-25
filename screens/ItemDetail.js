@@ -6,6 +6,7 @@ import {
   Text,
   Dimensions,
   Platform,
+  StatusBar,
 } from "react-native";
 import Colors from "../config/Colors";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -119,6 +120,7 @@ function ItemDetail(props) {
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 3,
+              marginBottom:40,
             }}
             onPress={handlesubmit}
           >
@@ -131,6 +133,8 @@ function ItemDetail(props) {
 const styles = StyleSheet.create({
   contianer: {
     flex: 1,
+   // marginTop:StatusBar.currentHeight
+   //marginTop10,
     
   //  backgroundColor: Colors.white,
   },
@@ -143,7 +147,7 @@ const styles = StyleSheet.create({
   img: {
     backgroundColor: Colors.primary,
     width: "100%",
-    height: Dimensions.get("window").height * 0.4,
+    height: Dimensions.get("window").height * 0.5,
   },
   buttonContianer: {
     marginHorizontal: 20,

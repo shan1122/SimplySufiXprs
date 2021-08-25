@@ -22,7 +22,7 @@ function DealDetailsCard(props) {
           <Image
             style={styles.img}
             source={{ uri: props.img }}
-            resizeMode="contain"
+            resizeMode="cover"
           />
 
           <Text style={styles.categoryBtnTxt}>{props.name}</Text>
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
-    width: 80,
+    width: 100,
     height: 100,
-    borderRadius: 50,
+    borderRadius: 10,
   },
 });
 export default DealDetailsCard;
