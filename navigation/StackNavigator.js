@@ -20,6 +20,7 @@ import cart from "../screens/Cart/cart";
 import CheckOut from "../screens/Cart/CheckOut";
 import CartIcon from "./CartIcon";
 import HeaderLogo from "./HeaderLogo";
+import SupportScreen from "../screens/SupportScreen";
 
 const Stack = createStackNavigator();
 
@@ -192,7 +193,6 @@ const MainStackNavigator = ({ navigation, route }) => {
     </Stack.Navigator>
   );
 };
-
 const ContactStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
@@ -240,4 +240,53 @@ const ContactStackNavigator = () => {
   );
 };
 
-export { MainStackNavigator, ContactStackNavigator };
+const SupportScreenStack = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen
+        name="Support"
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{ marginLeft: 10, color: "white" }}
+              onPress={() => navigation.openDrawer()}
+            >
+              <MaterialCommunityIcons
+                name="menu"
+                size={25}
+                color={Colors.white}
+                //  style={styles.icon}
+              />
+            </TouchableOpacity>
+          ),
+
+      //    headerRight: () => <CartIcon />,
+          headerTitle: () => (
+            // App Logo
+            <Image
+              style={{
+                width: 100,
+                height: 40,
+                backgroundColor: "transparent",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              source={require("../assets/logoXprs.png")}
+              resizeMode="contain"
+            />
+          ),
+        
+          headerTitleAlign:"center"
+,          headerTitleStyle: { flex: 1, textAlign: "center" },
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+        })}
+        component={SupportScreen}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export { MainStackNavigator, ContactStackNavigator,SupportScreenStack};

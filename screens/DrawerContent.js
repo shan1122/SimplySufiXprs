@@ -82,7 +82,7 @@ export function DrawerContent(props) {
             /> */}
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="fastfood" color={Colors.white} size={size} />
+                <MaterialIcons name="fastfood" size={24} color="white" />
               )}
               labelStyle={styles.label}
               label="Promotions"
@@ -163,7 +163,10 @@ export function DrawerContent(props) {
               )}
               label="Support"
               labelStyle={styles.label}
-              // onPress={() => {props.navigation.navigate('SupportScreen')}}
+              onPress={() => {
+                console.log("pressed"),
+                props.navigation.navigate("Support");
+              }}
             />
           </Drawer.Section>
           {/* <Drawer.Section title="Preferences">
