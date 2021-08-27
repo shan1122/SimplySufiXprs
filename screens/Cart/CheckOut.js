@@ -1,210 +1,250 @@
 import React from "react";
-import { View, Text,Modal,StyleSheet,TouchableOpacity } from "react-native";
-import { Form, FormField,SubmitButton } from "../../components/forms";
-import * as Yup from "yup";
+import { View, Text, Modal, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Form,
+  FormField,
+  SubmitButton,
+  FormPicker as Picker,
+} from "../../components/forms";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import * as Yup from "yup";
+
 import { Checkout } from "../../api/Functions";
 import { useState } from "react";
 import Colors from "../../config/Colors";
 import ListItemSeparator from "../../components/ListItemSeparator";
-import { useDispatch } from "react-redux";
-import {
-  addProduct,
-  removeCartItem,
-  reduceCartItem,
-  clearCart
-} from "../../store/actions";
+import { clearCart } from "../../store/actions";
 import ActivityIndicator from "../../components/ActivityIndicator";
-
+import CategoryPickerItem from "../../components/CategoryPickerItem";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Full Name"),
   email: Yup.string().required().email().label("Email"),
-  phone:Yup.string().matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,"please enter valid number").required().min(11).max(13).label("Contact Number"),
-  address:Yup.string().required().label("Address"),
-
-
-
+  phone: Yup.string()
+    .matches(
+      /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+      "please enter valid number"
+    )
+    .required()
+    .min(11)
+    .max(13)
+    .label("Contact Number"),
+  address: Yup.string().required().label("Address"),
+  //city.label:Yup.string().required().label("city")
 });
+
+const data = [
+  {
+    label: "Lahore",
+    value: 1,
+  },
+  {
+    label: "Islamabad",
+    value: 2,
+  },
+];
 
 function CheckOut(props) {
   const disptach = useDispatch();
-  const[visible,SetVisible]=useState(false);
-  const [loading,setLoading]=useState(false);
-  const [orderId,SetOrderid]= useState();
-  const [error,Seterror]=useState(false);
-  const [errordata,SetErrorData]=useState(null);
+  const [visible, SetVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [orderId, SetOrderid] = useState();
+  const [error, Seterror] = useState(false);
+  const [errordata, SetErrorData] = useState(null);
 
   //console.log(props)
   const calculatetotalprice = () => {
     let totalPrice = 0;
-    let cartTotalQuantity=0;
+    let cartTotalQuantity = 0;
     cartItems.map((item) => {
       totalPrice += item.totalprice;
-      cartTotalQuantity+=item.quantity;
+      cartTotalQuantity += item.quantity;
     });
     return totalPrice;
   };
   const calculateCartTotalQuantity = () => {
-    let cartTotalQuantity=0;
+    let cartTotalQuantity = 0;
     cartItems.map((item) => {
-      cartTotalQuantity+=item.quantity;
+      cartTotalQuantity += item.quantity;
     });
     return cartTotalQuantity;
   };
-const NextPage =()=>{
-  
-  SetVisible(false);
-  disptach(
-   clearCart()
-   
-  );
-  props.navigation.navigate("Home")
-//  props.navigation.pop();
-
-
-}
+  const NextPage = () => {
+    SetVisible(false);
+    disptach(clearCart());
+    props.navigation.navigate("Home");
+  };
 
   const cartItems = useSelector((state) => state.cartItems);
-  
-    const totalPrice=calculatetotalprice();
-    const quantity=calculateCartTotalQuantity();
-    // console.log(quantity);
-    // console.log(totalPrice)
-    // console.log(cartItems.length)
-    var product = {};
-    product.products=cartItems
 
-  const handleSubmit = async ({name,email,address,phone,comments}) => {
-        setLoading(true);
-    //      SetVisible(true);
-        const city="lahore"
-          const CheckOutResponse = await Checkout(name,email,phone,city,address,comments,product,quantity,totalPrice)
-          if (CheckOutResponse.ok){
-            // console.log(CheckOutResponse.data)
-            Seterror(false);
-            SetOrderid(CheckOutResponse.data.order_id) 
-            setLoading(false);
-            SetVisible(true)
-            SetErrorData(null)
-           
-            
-          }
-          else{
-            Seterror(true)
-             SetErrorData(CheckOutResponse.problem);
+  const totalPrice = calculatetotalprice();
+  const quantity = calculateCartTotalQuantity();
+  var product = {};
+  product.products = cartItems;
 
-            
-
-          }
-    //     const response2 = await registeruser(name,email,phone,city,address,comment,cartItems);
-    //     //console.log(response2);
-    //     //alert(response2.data);
-    //    console.log(response2.data.message);
+  const handleSubmit = async ({
+    name,
+    email,
+    address,
+    phone,
+    comments,
+    city,
+  }) => {
+    setLoading(true);
+    //console.log(city.label)
+    const CheckOutResponse = await Checkout(
+      name,
+      email,
+      phone,
+      city.label,
+      address,
+      comments,
+      product,
+      quantity,
+      totalPrice
+    );
+    if (CheckOutResponse.ok) {
+      // console.log(CheckOutResponse.data)
+      Seterror(false);
+      SetOrderid(CheckOutResponse.data.order_id);
+      setLoading(false);
+      SetVisible(true);
+      SetErrorData(null);
+    } else {
+      Seterror(true);
+      SetErrorData(CheckOutResponse.problem);
+    }
   };
 
   return (
     <>
-    <ActivityIndicator visible={loading}></ActivityIndicator>
-    <ScrollView>
-     <View>
-     <View  style={styles.centeredView}>
-        <View style={styles.modalView}>
-        <Modal visible={visible}>
-                <View style={{ flex: 1/2, justifyContent:"center",alignItems:"center", borderRadius: 20,}}>
-                    
-                <Text style={styles.TextHeader}>THNAK YOU FOR ORDER</Text>
-                <ListItemSeparator></ListItemSeparator>
-                <View style={{margin:20}}>
-                
-                <Text style={styles.TextDetails}>Your order {orderId} is sucessfully placed</Text>
-                <Text  style={styles.TextDetails}>You will receive a confirmation email shortly containing your order number and order details</Text>
-                </View>
+      <ActivityIndicator visible={loading}></ActivityIndicator>
+      <ScrollView>
+        <View>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Modal visible={visible}>
+                <View
+                  style={{
+                    flex: 1 / 2,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 20,
+                  }}
+                >
+                  <Text style={styles.TextHeader}>THNAK YOU FOR ORDER</Text>
+                  <ListItemSeparator></ListItemSeparator>
+                  <View style={{ margin: 20 }}>
+                    <Text style={styles.TextDetails}>
+                      Your order {orderId} is sucessfully placed
+                    </Text>
+                    <Text style={styles.TextDetails}>
+                      You will receive a confirmation email shortly containing
+                      your order number and order details
+                    </Text>
+                  </View>
                   <TouchableOpacity
                     style={styles.activenowbutton}
                     onPress={NextPage}
                   >
                     <Text style={styles.Buttontext}>OK</Text>
                   </TouchableOpacity>
-                  
                 </View>
               </Modal>
-              </View>
-              </View>
-
-     </View>
-    <View>
-    {error&&
-      <>
-      <Text style={{color:'red'}}>{errordata}</Text>
-     
-      </>}
-      <Form
-        initialValues={{name:"",email:"",address:"",phone:"",comments:""}}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        <FormField
-          autoCorrect={false}
-          icon="account"
-          name="name"
-          placeholder="Full Name"
-        />
-        <FormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="email"
-          keyboardType="email-address"
-          name="email"
-          placeholder="Email"
-          textContentType="emailAddress"
-        />
-        <FormField icon="home" name="address" placeholder="Address" />
-        <FormField icon="phone" name="phone" placeholder="Contact Number" keyboardType="numeric" />
-        <FormField
-          autoCorrect={false}
-         // icon="account"
-          name="comments"
-          placeholder="Delivery Instructions"
-          
-        />
-        <SubmitButton title="Confirm Order" />
-      </Form>
-    </View>
-    </ScrollView>
+            </View>
+          </View>
+        </View>
+        <View>
+          {error && (
+            <>
+              <Text style={{ color: "red" }}>{errordata}</Text>
+            </>
+          )}
+          <Form
+            initialValues={{
+              name: "",
+              email: "",
+              address: "",
+              phone: "",
+              comments: "",
+              city: "",
+            }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <FormField
+              autoCorrect={false}
+              icon="account"
+              name="name"
+              placeholder="Full Name"
+            />
+            <FormField
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="email"
+              keyboardType="email-address"
+              name="email"
+              placeholder="Email"
+              textContentType="emailAddress"
+            />
+            <Picker
+              items={data}
+              name="city"
+              numberOfColumns={1}
+              PickerItemComponent={CategoryPickerItem}
+              placeholder="Choose City"
+              width="94%"
+            />
+            <FormField icon="home" name="address" placeholder="Address" />
+            <FormField
+              icon="phone"
+              name="phone"
+              placeholder="Contact Number"
+              keyboardType="numeric"
+            />
+            <FormField
+              autoCorrect={false}
+              // icon="account"
+              name="comments"
+              placeholder="Delivery Instructions"
+            />
+            <SubmitButton title="Confirm Order" />
+          </Form>
+        </View>
+      </ScrollView>
     </>
   );
-  
 }
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-   // marginTop: 22
+    // marginTop: 22
   },
   modalView: {
     margin: 20,
     backgroundColor: "white",
-   // borderRadius: 20,
-   // padding: 35,
+    // borderRadius: 20,
+    // padding: 35,
 
     //height:"%",
-   // width:"100%",
+    // width:"100%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
-activenowbutton: {
-
-    height:50,
+  activenowbutton: {
+    height: 50,
     width: "90%",
     alignItems: "center",
     backgroundColor: Colors.primary,
@@ -214,7 +254,7 @@ activenowbutton: {
     borderRadius: 10,
   },
   cancelbtn: {
-    height:30,
+    height: 30,
     width: "50%",
     alignItems: "center",
     backgroundColor: "white",
@@ -223,21 +263,20 @@ activenowbutton: {
     marginVertical: 10,
     borderRadius: 10,
   },
-  Buttontext:{
-    
-      color: Colors.white,
-      fontWeight: "bold",
-   
+  Buttontext: {
+    color: Colors.white,
+    fontWeight: "bold",
   },
-  TextHeader:{
-    
+  TextHeader: {
     fontWeight: "100",
-     fontSize: 20, 
-   //  fontWeight:"bold",
-     color: Colors.primary
+    fontSize: 20,
+    //  fontWeight:"bold",
+    color: Colors.primary,
   },
-  TextDetails:{
-     fontWeight: "100", fontSize: 16, color: Colors.medium 
-  }
-})
+  TextDetails: {
+    fontWeight: "100",
+    fontSize: 16,
+    color: Colors.medium,
+  },
+});
 export default CheckOut;

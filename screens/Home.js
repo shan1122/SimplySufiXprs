@@ -8,8 +8,8 @@ import {
   ScrollView,
   Image,
   Dimensions,
-  TouchableOpacity,
   ImageBackground,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 import SwiperFlatList from "react-native-swiper-flatlist";
@@ -114,7 +114,7 @@ const Home = ({ navigation }) => {
         columnWrapperStyle={styles.columnWrapperStyle}
         renderItem={renderItem}
       />
-      <TouchableOpacity  onPress={() => {
+      <TouchableWithoutFeedback  onPress={() => {
         navigation.navigate("Product", {
           item: dealBanner,
         });
@@ -132,7 +132,7 @@ const Home = ({ navigation }) => {
           <Text style={{ fontWeight: "bold", fontSize: 25 }}>{dealBanner.name}</Text>
           <Text>{dealBanner.desc} </Text>
           <View>
-        <TouchableOpacity
+        <View
           style={{
             height: 40,
             marginTop: 10,
@@ -143,11 +143,11 @@ const Home = ({ navigation }) => {
           }}
         >
           <Text style={{ color: "white" }}>Add To cart</Text>
-        </TouchableOpacity>
+        </View>
       </View> 
         </View>
       </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
       <View style={styles.breaker}>
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>Deals</Text>
       </View>

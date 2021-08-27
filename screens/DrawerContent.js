@@ -82,7 +82,7 @@ export function DrawerContent(props) {
             /> */}
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="home-outline" color={Colors.white} size={size} />
+                <Icon name="fastfood" color={Colors.white} size={size} />
               )}
               labelStyle={styles.label}
               label="Promotions"

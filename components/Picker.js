@@ -6,6 +6,7 @@ import {
   Modal,
   Button,
   FlatList,
+  Dimensions,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -13,6 +14,7 @@ import Text from "./Text";
 import defaultStyles from "../config/styles";
 import PickerItem from "./PickerItem";
 import Screen from "./Screen";
+import Colors from "../config/Colors";
 
 function AppPicker({
   icon,
@@ -77,11 +79,17 @@ function AppPicker({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.Colors.light,
-    borderRadius: 25,
-    flexDirection: "row",
-    padding: 15,
-    marginVertical: 10,
+   // backgroundColor: defaultStyles.Colors.light,
+   borderWidth:1,
+   borderColor:Colors.primary,
+   borderRadius:4,
+   flexDirection: "row",
+   padding: 15,
+   marginVertical: 8,
+   width: Dimensions.get("window").width -20,
+   marginLeft:10,
+   
+
   },
   icon: {
     marginRight: 10,

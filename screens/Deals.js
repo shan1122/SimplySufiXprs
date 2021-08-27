@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 function Deals(props) {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
+    <TouchableWithoutFeedback
     onPress={() => {
       navigation.navigate("Product", {
         item: props,
@@ -63,7 +63,7 @@ function Deals(props) {
       </View>
     
     </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
+import { Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 function HomeMenu(props) {
@@ -7,7 +7,7 @@ function HomeMenu(props) {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity
+    <TouchableWithoutFeedback
       onPress={() => {
         navigation.navigate("DealDetails", {
           item: props.products,
@@ -25,7 +25,7 @@ function HomeMenu(props) {
 
         <Text style={styles.categoryBtnTxt}>{props.name}</Text>
       </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({
