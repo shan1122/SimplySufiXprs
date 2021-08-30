@@ -10,10 +10,12 @@ function ActivityIndicator({ visible = false }) {
       <LottieView
         autoPlay
         loop
-        source={require("../assets/animations/loader.json")}
+        source={require("../assets/animations/Loading.json")}
         style={{
-          width: 70,
-          height: 70,
+          width: 55,
+          height: 55,
+          alignSelf:"center",
+          alignItems:"center",
           //  marginLeft: - 5
         }}
         resizeMode="cover"
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
     height: "100%",
     opacity: 0.8,
     width: "100%",
-    paddingTop:Dimensions.get("window").height/2-20,
+    paddingTop:Dimensions.get("window").height/2-80,
     zIndex: 1,
     alignSelf: "center",
     alignContent: "center",

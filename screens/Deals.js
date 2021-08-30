@@ -45,7 +45,7 @@ function Deals(props) {
         <View style={{flex:1,flexDirection:'column-reverse'}}>
 
                <View>
-        <TouchableOpacity
+        <View
           style={{
             height: 40,
             marginTop: 10,
@@ -56,7 +56,7 @@ function Deals(props) {
           }}
         >
           <Text style={{ color: "white" }}>Add To cart</Text>
-        </TouchableOpacity>
+        </View>
       </View> 
 
         </View>

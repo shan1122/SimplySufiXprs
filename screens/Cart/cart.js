@@ -84,17 +84,17 @@ const cart = ({ navigation }) => {
           </View>
           <View style={styles.productContainer}>
             <Text
-              style={{ fontWeight: "100", fontSize: 18, color: Colors.primary }}
+              style={{ fontWeight: "100", fontSize: 18, color: Colors.primary,fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir", }}
             >
               {item.name}
             </Text>
             <Text
-              style={{ fontWeight: "100", fontSize: 16, color: Colors.medium }}
+              style={{ fontWeight: "100", fontSize: 16, color: Colors.medium,fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir", }}
             >
               {item.price}X{item.quantity}
             </Text>
             <Text
-              style={{ fontWeight: "bold", fontSize: 16, color: Colors.medium }}
+              style={{ fontWeight: "bold", fontSize: 16, color: Colors.medium,fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir", }}
             >
               PKR {item.totalprice}
             </Text>
@@ -150,6 +150,7 @@ const cart = ({ navigation }) => {
               color: "black",
               alignSelf: "center",
               marginBottom: 10,
+              fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
             }}
           >
             Long Press to delete Item
@@ -193,7 +194,7 @@ const cart = ({ navigation }) => {
                 navigation.navigate("CheckOut");
               }}
             >
-              <Text style={{ color: "white" }}>CHECK OUT</Text>
+              <Text style={{ color: "white",fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir", }}>CHECK OUT</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -231,6 +232,7 @@ const styles = StyleSheet.create({
     // fontWeight: "bold",
     fontSize: 16,
     color: Colors.medium,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
   },
   cartImgContainer: {
     flex: 0.2,
@@ -245,6 +247,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     color: Colors.medium,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     marginHorizontal: 10,
   },
 });

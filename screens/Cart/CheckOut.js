@@ -48,6 +48,7 @@ const data = [
 ];
 
 function CheckOut(props) {
+  var orderids;
   const disptach = useDispatch();
   const [visible, SetVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -109,6 +110,7 @@ function CheckOut(props) {
     if (CheckOutResponse.ok) {
       // console.log(CheckOutResponse.data)
       Seterror(false);
+      orderids=CheckOutResponse.data.order_id;
       SetOrderid(CheckOutResponse.data.order_id);
       setLoading(false);
       SetVisible(true);
@@ -139,7 +141,7 @@ function CheckOut(props) {
                   <ListItemSeparator></ListItemSeparator>
                   <View style={{ margin: 20 }}>
                     <Text style={styles.TextDetails}>
-                      Your order {orderId} is sucessfully placed
+                      Your order id {orderids} is sucessfully placed
                     </Text>
                     <Text style={styles.TextDetails}>
                       You will receive a confirmation email shortly containing
@@ -266,16 +268,19 @@ const styles = StyleSheet.create({
   Buttontext: {
     color: Colors.white,
     fontWeight: "bold",
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
   },
   TextHeader: {
     fontWeight: "100",
     fontSize: 20,
     //  fontWeight:"bold",
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     color: Colors.primary,
   },
   TextDetails: {
     fontWeight: "100",
     fontSize: 16,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     color: Colors.medium,
   },
 });
