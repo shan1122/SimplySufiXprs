@@ -20,7 +20,7 @@ function SupportScreen() {
       <WebView
         onLoad={() => setIsLoaded(true)}
         source={{
-          uri: "https://www.simplysufi.com/chatraforsufireward",
+          uri: "https://www.simplysufixprs.net/chatraforsufireward",
         }}
         style={{ flex: 1 }}
       />

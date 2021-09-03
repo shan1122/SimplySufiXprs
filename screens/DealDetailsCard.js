@@ -1,6 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Dimensions, Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Text, View, StyleSheet, Dimensions, Image, TouchableWithoutFeedback } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../config/Colors";
 function DealDetailsCard(props) {
@@ -10,9 +9,10 @@ function DealDetailsCard(props) {
 
   return (
    
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         
         onPress={() => {
+          
           navigation.navigate("Product", {
             item: props,
           });
@@ -27,7 +27,7 @@ function DealDetailsCard(props) {
 
           <Text style={styles.categoryBtnTxt}>{props.name}</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
    
   );
 }
