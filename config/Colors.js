@@ -10,4 +10,6 @@ export default {
   dark: "#0c0c0c",
   danger: "#ff5252",
   grey:"#808080",
+  facebook:"#1094f4",
+  lightorange:"#eea04f"
 };
