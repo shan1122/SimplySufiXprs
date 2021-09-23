@@ -8,6 +8,13 @@ import MenuScreen from "./screens/MenuScreen";
 import { Dimensions, View } from "react-native";
 import LoginScreen from "./screens/Auth/LoginScreen";
 import AuthNavigator from "./navigation/AuthNavigator";
+import * as firebase from "firebase";
+import { firebaseConfig } from "./api/firebaseConfig";
+
+      if(firebase.apps.length ===0){
+        firebase.initializeApp(firebaseConfig);
+      }
+
 
 const App = () => {
   return (

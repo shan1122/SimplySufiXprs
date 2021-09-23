@@ -18,6 +18,7 @@ function AppTextInput({ icon, width = "98%", ...otherProps }) {
         />
       )} */}
       <TextInput
+        
         mode="outlined"
         outlineColor="black"
         underlineColor={Colors.primary}
@@ -36,12 +37,13 @@ function AppTextInput({ icon, width = "98%", ...otherProps }) {
 
 const styles = StyleSheet.create({
   container: {
-    //backgroundColor: "black",
+ //   backgroundColor: "black",
     //borderWidth:1,
     // borderColor:Colors.primary,
     // borderRadius:4,
     // flexDirection: "row",
     //  padding: 10,
+    borderColor:"white",
 
     marginVertical: 8,
     width: Dimensions.get("window").width - 20,

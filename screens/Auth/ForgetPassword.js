@@ -20,32 +20,32 @@ import Colors from "../../config/Colors";
 import firebase from "firebase";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  email: Yup.string().required().email().label("Email")
 });
 
-function LoginScreen(props) {
+function ForgetPassword(props) {
   const navigation = useNavigation();
   const [error, SetError] = useState(false);
   const [errordata, SetErrorData] = useState();
   const [loading, Setloading] = useState(false);
 
-  const handleSubmit = async ({ email, password }) => {
+  const handleSubmit = async ({ email }) => {
     //console.log(email, password);
     Setloading(true);
     
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email,password)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        SetError(true);
-      // var errors= JSON.stringify(error)
-        SetErrorData(error.message);
+    // firebase
+    //   .auth()
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     SetError(true);
+    //   // var errors= JSON.stringify(error)
+    //     SetErrorData(error.message);
        
-      });
+    //   });
+      
       Setloading(false)
   };
 
@@ -65,7 +65,7 @@ function LoginScreen(props) {
           {error && <><Text style={{ color: "red" }}>{errordata}</Text></>}
           <View style={styles.formstyle}>
             <Form
-              initialValues={{ email: "", password: "" }}
+              initialValues={{ email: "",}}
               onSubmit={handleSubmit}
               validationSchema={validationSchema}
             >
@@ -78,7 +78,7 @@ function LoginScreen(props) {
                 placeholder="Email"
                 textContentType="emailAddress"
               />
-              <FormField
+              {/* <FormField
                 autoCapitalize="none"
                 autoCorrect={false}
                 icon="lock"
@@ -86,44 +86,11 @@ function LoginScreen(props) {
                 placeholder="Password"
                 secureTextEntry
                 textContentType="password"
-              />
-              <SubmitButton title="Login" />
+              /> */}
+              <SubmitButton title="Reset Password" />
             </Form>
           </View>
-          <View>
-            <TouchableOpacity
-              style={{
-                height: 50,
-                //marginTop: 10,
-                marginHorizontal: 18,
-                backgroundColor: Colors.facebook,
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 3,
-                marginBottom: 40,
-              }}
-              //  onPress={handlesubmit}
-            >
-              <Text style={{ color: "white" }}>Login With FaceBook</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.BottomSection}>
-            <View>
-              <Text style={{ color: "white" }}>Forget Password?</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <Text style={{ color: "white" }}>
-                Don't have an account yet?{" "}
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Register");
-                }}
-              >
-                <Text style={{ color: "white" }}>Sign Up</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          
         </ImageBackground>
       </View>
     </>
@@ -157,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default ForgetPassword;
