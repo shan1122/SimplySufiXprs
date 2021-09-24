@@ -10,29 +10,34 @@ import LoginScreen from "./screens/Auth/LoginScreen";
 import AuthNavigator from "./navigation/AuthNavigator";
 import * as firebase from "firebase";
 import { firebaseConfig } from "./api/firebaseConfig";
+import { useSelector } from "react-redux";
+import MainApp from "./MainApp";
 
-      if(firebase.apps.length ===0){
+
+
+
+
+
+      if(firebase.apps.length === 0){
+      
+       
         firebase.initializeApp(firebaseConfig);
       }
 
 
 const App = () => {
+
+ 
   return (
-    <View style={{ flex: 1 }}>
-      {/* <Provider store={store}>
-        <NavigationContainer>
-          <DrawerNavigator />
-          <FlashMessage  position="top" />
-        </NavigationContainer>
-      </Provider> */}
-      <NavigationContainer>
 
+      <Provider store={store}>
+        
+         <MainApp></MainApp>
+     
+      </Provider>
 
-      <AuthNavigator></AuthNavigator>
-      </NavigationContainer>
-      
     
-    </View>
+  
   );
 };
 export default App;

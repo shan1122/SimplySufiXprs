@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 function CartIcon(props) {
   const navigation = useNavigation();
-  const cartItems = useSelector((state) => state.cartItems);
+  const cartItems = useSelector((state) => state.cartItems.cartItems);
   const isCartEmpty = Boolean(cartItems.length);
   return (
     <>

@@ -25,18 +25,22 @@ import { ScrollView } from "react-native-gesture-handler";
 
 const cart = ({ navigation }) => {
   const cartItems = useSelector((state) => state.cartItems);
-  const isCartEmpty = Boolean(cartItems.length);
+  const cartItem=cartItems.cartItems
+  console.log(cartItem.length)
+  const isCartEmpty = Boolean(cartItem.length==0);
+      console.log(isCartEmpty)
+ // console.log(isCartEmpty)
   const disptach = useDispatch();
   //console.log(cartItems);
   // console.log(navigation)
-
-  const calculatetotalprice = () => {
-    let totalPrice = 0;
-    cartItems.map((item) => {
-      totalPrice += item.totalprice;
-    });
-    return totalPrice;
-  };
+console.log(cartItems.cartItems)
+   const calculatetotalprice = () => {
+     let totalPrice = 0;
+     cartItem.map((item) => {
+       totalPrice += item.totalprice;
+     });
+     return totalPrice;
+   };
   const handelDelete = (item) => {
     disptach(
       removeCartItem(item)
@@ -132,7 +136,7 @@ const cart = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      {!isCartEmpty ? (
+      {isCartEmpty ? (
         <View style={styles.emptyCartContainer}>
           <MaterialCommunityIcons
             name="cart-remove"
@@ -156,7 +160,7 @@ const cart = ({ navigation }) => {
             Long Press to delete Item
           </Text>
           <FlatList
-            data={cartItems}
+            data={cartItem}
             keyExtractor={(item) => item.id.toString()}
             //  contentContainerStyle={{ flexDirection: "row", flexWrap: "nowrap" }}
             //columnWrapperStyle={styles.columnWrapperStyle}

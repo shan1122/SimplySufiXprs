@@ -79,7 +79,7 @@ function CheckOut(props) {
     props.navigation.navigate("Home");
   };
 
-  const cartItems = useSelector((state) => state.cartItems);
+  const cartItems = useSelector((state) => state.cartItems.cartItems);
 
   const totalPrice = calculatetotalprice();
   const quantity = calculateCartTotalQuantity();
@@ -159,12 +159,13 @@ function CheckOut(props) {
             </View>
           </View>
         </View>
-        <View>
+        <View style={styles.FormStyle}>
           {error && (
             <>
               <Text style={{ color: "red" }}>{errordata}</Text>
             </>
           )}
+         
           <Form
             initialValues={{
               name: "",
@@ -225,6 +226,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    
     // marginTop: 22
   },
   modalView: {
@@ -269,6 +271,10 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontWeight: "bold",
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    
+  },
+  FormStyle:{
+    marginLeft:10
   },
   TextHeader: {
     fontWeight: "100",

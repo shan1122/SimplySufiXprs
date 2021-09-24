@@ -11,12 +11,17 @@ import {
   Switch,
 } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { Entypo } from '@expo/vector-icons'; 
 
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons,FontAwesome5 ,FontAwesome  } from "@expo/vector-icons";
+import { SimpleLineIcons } from '@expo/vector-icons'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../config/Colors";
+import { useDispatch } from "react-redux";
+import { SignoutUser } from "../store/actions/UserAction";
 
 export function DrawerContent(props) {
+  const disptach=useDispatch();
  
 
   return (
@@ -89,8 +94,14 @@ export function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate("Contact");
               }}
+              
             />
-            {/* <DrawerItem
+           
+            
+
+
+            
+            <DrawerItem
               icon={({ color, size }) => (
                 <MaterialIcons name="location-pin" size={24} color="white" />
               )}
@@ -102,7 +113,7 @@ export function DrawerContent(props) {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <MaterialIcons name="location-pin" size={24} color="white" />
+                <FontAwesome name="info-circle" size={size} color={Colors.white} />
               )}
               labelStyle={styles.label}
               label="About Us"
@@ -112,7 +123,7 @@ export function DrawerContent(props) {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="home-outline" color={Colors.white} size={size} />
+                <SimpleLineIcons name="book-open" size={size} color={Colors.white} />
               )}
               labelStyle={styles.label}
               label="Terms and Condition"
@@ -123,14 +134,14 @@ export function DrawerContent(props) {
 
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="account-outline" color={Colors.white} size={size} />
+                <FontAwesome5 name="user-friends" size={size} color="white" />
               )}
               labelStyle={styles.label}
               label="Share With Friends"
               onPress={() => {
                 props.navigation.navigate("Contact");
               }}
-            /> */}
+            />
             {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
@@ -155,13 +166,9 @@ export function DrawerContent(props) {
                         /> */}
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon
-                  name="account-check-outline"
-                  color={Colors.white}
-                  size={size}
-                />
+                <Entypo name="chat" size={24} color="white" />
               )}
-              label="Support"
+              label="Live Chat"
               labelStyle={styles.label}
               onPress={() => {
                 console.log("pressed"),
@@ -169,24 +176,27 @@ export function DrawerContent(props) {
               }}
             />
           </Drawer.Section>
-          {/* <Drawer.Section title="Preferences">
+           {/* <Drawer.Section title="Preferences">
                       
-                    </Drawer.Section> */}
+                    </Drawer.Section>  */}
         </View>
       </DrawerContentScrollView>
-      {/* <Drawer.Section style={styles.bottomDrawerSection}>
-                <DrawerItem 
-                    icon={({color, size}) => (
-                        <Icon 
-                        name="exit-to-app" 
-                        color={Colors.white}
-                        size={size}
-                        />
-                    )}
-                    label="Sign Out"
-               //     onPress={() => {signOut()}}
-                />
-            </Drawer.Section> */}
+      <Drawer.Section style={styles.bottomDrawerSection}>
+              <DrawerItem
+              icon={({ color, size }) => (
+                <MaterialIcons name="logout" size={24} color="white" />
+              )}
+              labelStyle={styles.label}
+              label="LogOut"
+              onPress={() => {
+                disptach(
+                  SignoutUser()
+                  //reduceCartItem(item)
+                );
+              }}
+              
+            />
+            </Drawer.Section>
     </View>
   );
 }

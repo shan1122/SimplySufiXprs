@@ -10,6 +10,7 @@ import {
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 
+
 // import Screen from "../components/Screen";
 import { Form, FormField, SubmitButton } from "../../components/forms";
 //import AuthContext from "../auth/context";
@@ -18,6 +19,8 @@ import { Form, FormField, SubmitButton } from "../../components/forms";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import Colors from "../../config/Colors";
 import firebase from "firebase";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../store/actions/UserAction";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -25,6 +28,7 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen(props) {
+  const disptach=useDispatch()
   const navigation = useNavigation();
   const [error, SetError] = useState(false);
   const [errordata, SetErrorData] = useState();
@@ -33,15 +37,17 @@ function LoginScreen(props) {
   const handleSubmit = async ({ email, password }) => {
     //console.log(email, password);
     Setloading(true);
-    
-    firebase
-      .auth()
+    console.log(email,password)
+ await   firebase.auth()
       .signInWithEmailAndPassword(email,password)
       .then((result) => {
-        console.log(result);
+        //console.log(result.user);
+
+        disptach(setCurrentUser(result.user));
       })
       .catch((error) => {
         SetError(true);
+        console.log(error)
       // var errors= JSON.stringify(error)
         SetErrorData(error.message);
        
