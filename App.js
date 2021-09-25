@@ -12,6 +12,7 @@ import * as firebase from "firebase";
 import { firebaseConfig } from "./api/firebaseConfig";
 import { useSelector } from "react-redux";
 import MainApp from "./MainApp";
+import LocationScreen from "./screens/LocationScreen";
 
 
 
@@ -33,6 +34,7 @@ const App = () => {
       <Provider store={store}>
         
          <MainApp></MainApp>
+         {/* <LocationScreen></LocationScreen> */}
      
       </Provider>
 

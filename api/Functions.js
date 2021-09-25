@@ -53,24 +53,31 @@ export const getDeals =()=>client.get("getXprsDeals/2")
 export const getCitydata=()=>client.get("getAllData/"+"2")
 
 export const getBannerImages=()=>client.get("getBannerImgs");
-
 export const Checkout=(name,email,mobile,city,address,comment,cart,total_quantity,total_bill)=>client.post("/placeOrder",{name,email,mobile,city,address,comment,cart,total_quantity,total_bill})
 
-
-
-export const getXPressItems = () => client.get(item +"/"+"1");
-
-export const getFrozenItems = () => client.get(item + "/" + "2");
-
-export const getUserPoints = (user_id) => client.get(wallet + "/" + user_id);
+// export const getUserPoints = (user_id) => client.get(wallet + "/" + user_id);
+// export const  registeruser=(name,email,password,address,phone,location)=>client.post("/createuser",{name,email,password,address,phone,location});
 
 
 
 
-export const getcode = (item_id, user_id) => client.post("/onRedeemItem", { item_id, user_id});
 
-export const login = (email, password) => client.post("/userlogin", { email, password });
-export const  registeruser=(name,email,password,address,phone,location)=>client.post("/createuser",{name,email,password,address,phone,location});
-export const  XprsScan=(user_id,qr_code,branch_name,category_id,points)=>client.post("/onScanXPRSQr",{user_id,qr_code,branch_name,category_id,points});
-export const ipaddress = () => client.get("/getXprsServersIp");
-export const  FrozenScan=(user_id,qr_code,branch_name,category_id)=>client.post("/onScanXPRSQr",{user_id,qr_code,branch_name,category_id});
+
+
+
+
+// export const getXPressItems = () => client.get(item +"/"+"1");
+
+// export const getFrozenItems = () => client.get(item + "/" + "2");
+
+
+
+
+
+// export const getcode = (item_id, user_id) => client.post("/onRedeemItem", { item_id, user_id});
+
+// export const login = (email, password) => client.post("/userlogin", { email, password });
+// export const  registeruser=(name,email,password,address,phone,location)=>client.post("/createuser",{name,email,password,address,phone,location});
+// export const  XprsScan=(user_id,qr_code,branch_name,category_id,points)=>client.post("/onScanXPRSQr",{user_id,qr_code,branch_name,category_id,points});
+// export const ipaddress = () => client.get("/getXprsServersIp");
+// export const  FrozenScan=(user_id,qr_code,branch_name,category_id)=>client.post("/onScanXPRSQr",{user_id,qr_code,branch_name,category_id});
