@@ -80,6 +80,8 @@ function CheckOut(props) {
   };
 
   const cartItems = useSelector((state) => state.cartItems.cartItems);
+  const user = useSelector((state) => state.user.currentUser)
+  console.log(user.email)
 
   const totalPrice = calculatetotalprice();
   const quantity = calculateCartTotalQuantity();
@@ -182,6 +184,7 @@ function CheckOut(props) {
               autoCorrect={false}
               icon="account"
               name="name"
+              val={user.name}
               placeholder="Full Name"
             />
             <FormField

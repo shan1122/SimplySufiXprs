@@ -33,8 +33,8 @@ const App = () => {
 
       <Provider store={store}>
         
-         {/* <MainApp></MainApp> */}
-         <LocationScreen></LocationScreen>
+         <MainApp></MainApp>
+         {/* <LocationScreen></LocationScreen> */}
      
       </Provider>
 

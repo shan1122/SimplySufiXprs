@@ -40,10 +40,14 @@ function LoginScreen(props) {
     console.log(email,password)
  await   firebase.auth()
       .signInWithEmailAndPassword(email,password)
-      .then((result) => {
+      .then( async(result) => {
         //console.log(result.user);
+        const getdatabyemail = await getUserInfo(email);
+        if(getdatabyemail.ok){
 
-        disptach(setCurrentUser(result.user));
+            disptach(setCurrentUser(getdatabyemail.data.user));
+        }
+       
       })
       .catch((error) => {
         SetError(true);

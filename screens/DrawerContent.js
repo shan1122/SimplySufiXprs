@@ -108,7 +108,7 @@ export function DrawerContent(props) {
               labelStyle={styles.label}
               label="Locations"
               onPress={() => {
-                props.navigation.navigate("Home");
+                props.navigation.navigate("Locations");
               }}
             />
             <DrawerItem

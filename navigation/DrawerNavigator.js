@@ -4,7 +4,7 @@ import React from "react";
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import { ContactStackNavigator, SupportScreenStack } from "./StackNavigator";
+import { ContactStackNavigator, LocationsStack, SupportScreenStack } from "./StackNavigator";
 import TabNavigator from "./TabNavigator";
 
 const Drawer = createDrawerNavigator();
@@ -19,6 +19,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Home" component={TabNavigator} />
       <Drawer.Screen name="Contact" component={ContactStackNavigator} />
       <Drawer.Screen name="Support" component={SupportScreenStack}/>
+      <Drawer.Screen name="Locations" component={LocationsStack}/>
      
     </Drawer.Navigator>
   );
