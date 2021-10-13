@@ -24,6 +24,7 @@ import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../store/actions/UserAction";
 import CategoryPickerItem from "../../components/CategoryPickerItem";
 import { getUserInfo, registeruser } from "../../api/Functions";
+import { ScrollView } from "react-native-gesture-handler";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Full Name"),
@@ -55,12 +56,12 @@ function RegisterScreen(props) {
   const handleSubmit = async ({ name,email, password,phone,address,city}) => {
     console.log(name,email, password,phone,address,city.label);
     Setloading(true);
-    
+    console.log(city.label)
     console.log(email,password)
    await   firebase.auth()
       .createUserWithEmailAndPassword(email,password)
       .then(async(result) => {
-        const registerThroughapi = await registeruser(email,name,phone,address,city)
+        const registerThroughapi = await registeruser(email,name,phone,address,city.label)
         if(registerThroughapi.ok){
     
         if(registerThroughapi.data.error==false){
@@ -109,6 +110,7 @@ function RegisterScreen(props) {
             source={require("../../assets/logoXprs.png")}
           />
           {error && <><Text style={{ color: "red" }}>{errordata}</Text></>}
+          <ScrollView>
           <View style={styles.formstyle}>
             <Form
               initialValues={{ name: "",
@@ -161,6 +163,7 @@ function RegisterScreen(props) {
               <SubmitButton title="Register" />
             </Form>
           </View>
+          </ScrollView>
           
          
         </ImageBackground>

@@ -1,45 +1,26 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import DrawerNavigator from "./navigation/DrawerNavigator";
-import FlashMessage from "react-native-flash-message";
 import { Provider } from "react-redux";
-import store from "./store";
-import MenuScreen from "./screens/MenuScreen";
-import { Dimensions, View } from "react-native";
-import LoginScreen from "./screens/Auth/LoginScreen";
-import AuthNavigator from "./navigation/AuthNavigator";
+import { store, persistor } from "./store";
+
+
 import * as firebase from "firebase";
 import { firebaseConfig } from "./api/firebaseConfig";
-import { useSelector } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+
 import MainApp from "./MainApp";
-import LocationScreen from "./screens/LocationScreen";
 
 
-
-
-
-
-      if(firebase.apps.length === 0){
-      
-       
-        firebase.initializeApp(firebaseConfig);
-      }
-
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const App = () => {
-
- 
   return (
-
-      <Provider store={store}>
-        
-         <MainApp></MainApp>
-         {/* <LocationScreen></LocationScreen> */}
-     
-      </Provider>
-
-    
-  
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <MainApp></MainApp>
+      </PersistGate>
+    </Provider>
   );
 };
 export default App;

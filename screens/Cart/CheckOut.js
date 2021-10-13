@@ -19,6 +19,7 @@ import ListItemSeparator from "../../components/ListItemSeparator";
 import { clearCart } from "../../store/actions";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import CategoryPickerItem from "../../components/CategoryPickerItem";
+import AppEditAbleForm from "../../components/forms/AppEditAbleForm";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Full Name"),
@@ -80,8 +81,8 @@ function CheckOut(props) {
   };
 
   const cartItems = useSelector((state) => state.cartItems.cartItems);
-  const user = useSelector((state) => state.user.currentUser)
-  console.log(user.email)
+  const user = useSelector((state) => state.user.currentUser);
+  console.log(user);
 
   const totalPrice = calculatetotalprice();
   const quantity = calculateCartTotalQuantity();
@@ -99,6 +100,7 @@ function CheckOut(props) {
     setLoading(true);
     //console.log(city.label)
     const CheckOutResponse = await Checkout(
+      user.custid,
       name,
       email,
       phone,
@@ -112,10 +114,10 @@ function CheckOut(props) {
     if (CheckOutResponse.ok) {
       // console.log(CheckOutResponse.data)
       Seterror(false);
-      orderids=CheckOutResponse.data.order_id;
+      orderids = CheckOutResponse.data.order_id;
       SetOrderid(CheckOutResponse.data.order_id);
       setLoading(false);
-      SetVisible(true);
+      SetVisible(true); 
       SetErrorData(null);
     } else {
       Seterror(true);
@@ -133,10 +135,10 @@ function CheckOut(props) {
               <Modal visible={visible}>
                 <View
                   style={{
-                    flex: 1 / 2,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 20,
+                    flex: 1 ,
+                    // justifyContent: "center",
+                    // alignItems: "center",
+                    // borderRadius: 20,
                   }}
                 >
                   <Text style={styles.TextHeader}>THNAK YOU FOR ORDER</Text>
@@ -167,7 +169,7 @@ function CheckOut(props) {
               <Text style={{ color: "red" }}>{errordata}</Text>
             </>
           )}
-         
+
           <Form
             initialValues={{
               name: "",
@@ -175,19 +177,20 @@ function CheckOut(props) {
               address: "",
               phone: "",
               comments: "",
-              city: "",
+              city: user.city,
             }}
             onSubmit={handleSubmit}
             validationSchema={validationSchema}
           >
-            <FormField
+            <AppEditAbleForm
               autoCorrect={false}
               icon="account"
               name="name"
-              val={user.name}
+              val={""+user.firstname}
+              editable={false}
               placeholder="Full Name"
             />
-            <FormField
+            <AppEditAbleForm
               autoCapitalize="none"
               autoCorrect={false}
               icon="email"
@@ -195,23 +198,28 @@ function CheckOut(props) {
               name="email"
               placeholder="Email"
               textContentType="emailAddress"
+              val={""+user.email}
+              editable={false}
             />
             <Picker
               items={data}
               name="city"
               numberOfColumns={1}
               PickerItemComponent={CategoryPickerItem}
-              placeholder="Choose City"
+            //  placeholder="Choose City"
+              placeholder={""+user.city}
               width="94%"
+              
             />
-            <FormField icon="home" name="address" placeholder="Address" />
-            <FormField
+            <AppEditAbleForm icon="home" name="address" placeholder="Address" val={""+user.address1} />
+            <AppEditAbleForm
               icon="phone"
               name="phone"
               placeholder="Contact Number"
               keyboardType="numeric"
+              val={""+user.mobileno}
             />
-            <FormField
+            <AppEditAbleForm
               autoCorrect={false}
               // icon="account"
               name="comments"
@@ -229,7 +237,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    
+
     // marginTop: 22
   },
   modalView: {
@@ -274,10 +282,9 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontWeight: "bold",
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    
   },
-  FormStyle:{
-    marginLeft:10
+  FormStyle: {
+    marginLeft: 10,
   },
   TextHeader: {
     fontWeight: "100",

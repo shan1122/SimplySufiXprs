@@ -21,6 +21,8 @@ import Colors from "../../config/Colors";
 import firebase from "firebase";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../store/actions/UserAction";
+import {getUserInfo } from "../../api/Functions"
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -44,7 +46,7 @@ function LoginScreen(props) {
         //console.log(result.user);
         const getdatabyemail = await getUserInfo(email);
         if(getdatabyemail.ok){
-
+          console.log(getdatabyemail.data.user)
             disptach(setCurrentUser(getdatabyemail.data.user));
         }
        

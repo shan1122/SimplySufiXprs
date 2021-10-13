@@ -51,13 +51,13 @@ var postData = {
 
 export const getDeals =()=>client.get("getXprsDeals/2")
 export const getCitydata=()=>client.get("getAllData/"+"2")
-export const getUserInfo=(email)=>client.get("/getUserInfo/"+{email})
+export const getUserInfo=(email)=>client.get("getUserInfo/"+email)
 
 export const getBannerImages=()=>client.get("getBannerImgs");
-export const Checkout=(name,email,mobile,city,address,comment,cart,total_quantity,total_bill)=>client.post("/placeOrder",{name,email,mobile,city,address,comment,cart,total_quantity,total_bill})
+export const Checkout=(custid,name,email,mobile,city,address,comment,cart,total_quantity,total_bill)=>client.post("/placeOrder",{custid,name,email,mobile,city,address,comment,cart,total_quantity,total_bill})
 
 // export const getUserPoints = (user_id) => client.get(wallet + "/" + user_id);
- export const  registeruser=(email,name,phone,address,city)=>client.post("/createuser",{email,name,phone,address,city});
+ export const  registeruser=(email,name,mobile,address,city)=>client.post("/createuser",{email,name,mobile,address,city});
 
 // export const getXPressItems = () => client.get(item +"/"+"1");
 
