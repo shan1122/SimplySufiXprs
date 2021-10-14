@@ -23,6 +23,7 @@ import HeaderLogo from "./HeaderLogo";
 import SupportScreen from "../screens/SupportScreen";
 import OrderScreen from "../screens/OrderScreen";
 import LocationScreen from "../screens/LocationScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -338,6 +339,54 @@ const OrderScreenStack = () => {
     </Stack.Navigator>
   );
 };
+const ProfileScreenStack = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen
+        name="Order"
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{ marginLeft: 10, color: "white" }}
+              onPress={() => navigation.openDrawer()}
+            >
+              <MaterialCommunityIcons
+                name="menu"
+                size={25}
+                color={Colors.white}
+                //  style={styles.icon}
+              />
+            </TouchableOpacity>
+          ),
+
+      //    headerRight: () => <CartIcon />,
+          headerTitle: () => (
+            // App Logo
+            <Image
+              style={{
+                width: 100,
+                height: 40,
+                backgroundColor: "transparent",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              source={require("../assets/logoXprs.png")}
+              resizeMode="contain"
+            />
+          ),
+        
+          headerTitleAlign:"center"
+,          headerTitleStyle: { flex: 1, textAlign: "center" },
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+        })}
+        component={ProfileScreen}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const LocationsStack= () => {
   return (
@@ -391,4 +440,4 @@ const LocationsStack= () => {
 
 
 
-export { MainStackNavigator, ContactStackNavigator,SupportScreenStack,OrderScreenStack,LocationsStack};
+export { MainStackNavigator, ContactStackNavigator,SupportScreenStack,OrderScreenStack,LocationsStack,ProfileScreenStack};

@@ -4,12 +4,14 @@ import {
   Text,
   StyleSheet,
   Image,
+  Dimensions,
 } from "react-native";
 import Colors from "../config/Colors";
 import { TouchableOpacity,TouchableWithoutFeedback} from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
 function Deals(props) {
+  console.log(props)
   const navigation = useNavigation();
   return (
     <TouchableWithoutFeedback
@@ -36,11 +38,11 @@ function Deals(props) {
         </Text>
         <Text
           style={{
-            fontSize: 14,
+            fontSize: 10,
             fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
           }}
         >
-        {}
+        {props.desc}
         </Text>
         <View style={{flex:1,flexDirection:'column-reverse'}}>
 
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
   dealsContainer: {
     flex: 1,
     flexDirection: "row",
-    height: 200,
+    height:Dimensions.get("window").height*0.3,
     backgroundColor: "white",
     borderWidth: 20,
     borderColor: "white",
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
   dealImgContainer: {
     flex: 0.6,
     flexDirection: "column",
+    //marginTop:30,
   },
   dealDetailContainer: {
     paddingLeft: 20,
@@ -85,10 +88,12 @@ const styles = StyleSheet.create({
 
     flex: 1 / 2,
     flexDirection: "column",
+    
   },
   dealImage: {
-    width: "100%",
-    height: "100%",
+    //width: "100%",
+    resizeMode:"contain",
+    height: Dimensions.get("window").height*0.24,
   },
 });
 export default Deals;

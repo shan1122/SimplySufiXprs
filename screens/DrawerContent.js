@@ -19,6 +19,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../config/Colors";
 import { useDispatch } from "react-redux";
 import { SignoutUser } from "../store/actions/UserAction";
+import { clearCart } from "../store/actions";
 
 export function DrawerContent(props) {
   const disptach=useDispatch();
@@ -176,13 +177,10 @@ export function DrawerContent(props) {
               }}
             />
           </Drawer.Section>
-           {/* <Drawer.Section title="Preferences">
-                      
-                    </Drawer.Section>  */}
-        </View>
-      </DrawerContentScrollView>
-      <Drawer.Section style={styles.bottomDrawerSection}>
-              <DrawerItem
+          {/* prefernce secton */}
+           <Drawer.Section >
+
+           <DrawerItem
               icon={({ color, size }) => (
                 <MaterialIcons name="logout" size={24} color="white" />
               )}
@@ -190,12 +188,23 @@ export function DrawerContent(props) {
               label="LogOut"
               onPress={() => {
                 disptach(
+                  
+                 clearCart()
+                 
+                );
+                disptach(
                   SignoutUser()
-                  //reduceCartItem(item)
                 );
               }}
               
             />
+            
+
+                      
+                    </Drawer.Section> 
+        </View>
+      </DrawerContentScrollView>
+      <Drawer.Section style={styles.drawerSection}>
             </Drawer.Section>
     </View>
   );
@@ -235,6 +244,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   bottomDrawerSection: {
+    
     marginBottom: 15,
     borderTopColor: "#f4f4f4",
     borderTopWidth: 1,

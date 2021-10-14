@@ -136,8 +136,8 @@ function CheckOut(props) {
                 <View
                   style={{
                     flex: 1 ,
-                    // justifyContent: "center",
-                    // alignItems: "center",
+                     justifyContent: "center",
+                     alignItems: "center",
                     // borderRadius: 20,
                   }}
                 >
@@ -145,7 +145,7 @@ function CheckOut(props) {
                   <ListItemSeparator></ListItemSeparator>
                   <View style={{ margin: 20 }}>
                     <Text style={styles.TextDetails}>
-                      Your order id {orderids} is sucessfully placed
+                      Your order is sucessfully placed
                     </Text>
                     <Text style={styles.TextDetails}>
                       You will receive a confirmation email shortly containing
@@ -177,7 +177,7 @@ function CheckOut(props) {
               address: "",
               phone: "",
               comments: "",
-              city: user.city,
+              city: "",
             }}
             onSubmit={handleSubmit}
             validationSchema={validationSchema}

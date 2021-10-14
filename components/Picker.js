@@ -13,6 +13,7 @@ import Text from "./Text";
 import defaultStyles from "../config/styles";
 import PickerItem from "./PickerItem";
 import Screen from "./Screen";
+import Colors from "../config/Colors";
 
 function AppPicker({
   icon,
@@ -23,12 +24,19 @@ function AppPicker({
   placeholder,
   selectedItem,
   width = "100%",
+  editable,
 }) {
   const [modalVisible, setModalVisible] = useState(false);
 
+  const HandlePress=()=>{
+    // setModalVisible(true)
+    {editable==true?  setModalVisible(true): ""}
+
+  }
+
   return (
     <>
-      <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+      <TouchableWithoutFeedback onPress={HandlePress}>
         <View style={[styles.container, { width }]}>
           {icon && (
             <MaterialCommunityIcons
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   placeholder: {
-    color: defaultStyles.Colors.medium,
+    color:Colors.medium,
     flex: 1,
   },
   text: {

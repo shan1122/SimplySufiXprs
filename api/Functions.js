@@ -52,6 +52,8 @@ var postData = {
 export const getDeals =()=>client.get("getXprsDeals/2")
 export const getCitydata=()=>client.get("getAllData/"+"2")
 export const getUserInfo=(email)=>client.get("getUserInfo/"+email)
+export const getUserOrders=(custid)=>client.get("getCustomersOrders/"+custid)
+
 
 export const getBannerImages=()=>client.get("getBannerImgs");
 export const Checkout=(custid,name,email,mobile,city,address,comment,cart,total_quantity,total_bill)=>client.post("/placeOrder",{custid,name,email,mobile,city,address,comment,cart,total_quantity,total_bill})

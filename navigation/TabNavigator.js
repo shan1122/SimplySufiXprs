@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { MainStackNavigator, ContactStackNavigator, OrderScreenStack } from "./StackNavigator";
+import { MainStackNavigator, ContactStackNavigator, OrderScreenStack, ProfileScreenStack } from "./StackNavigator";
 import Colors from "../config/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -53,7 +53,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={OrderScreenStack}
+        component={ProfileScreenStack}
         options={{
           tabBarLabel: "Profile",
           tabBarColor: "#FF6347",
